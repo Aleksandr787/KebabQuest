@@ -1,4 +1,5 @@
 ﻿using KebabQuest.Data.Repositories;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace KebabQuest.Services.Services
 
         public async Task<string> RegisterUserAsync()
         {
-            string createdToken = Guid.NewGuid().ToString();
+            string createdToken = ObjectId.GenerateNewId().ToString();
             await _userRepository.RegisterUserAsync(createdToken);
             return createdToken;
         }
