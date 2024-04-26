@@ -28,5 +28,6 @@ public class ChatGptController : ControllerBase
     public async Task<IActionResult> ChatTheb([FromQuery] string prompt)
     {
         var answer = await _chatGptThebService.SendRequest(prompt);
+        return Ok(answer);
     }
 }
