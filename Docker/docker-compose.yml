@@ -1,7 +1,7 @@
 ﻿services:
   kq-backend:
     container_name: kq-backend
-    build: "../backend"
+    build: "../Backend"
     depends_on:
       - kq-mongo
   kq-nginx:
