@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using KebabQuest.Services.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace KebabQuest.Services.Configuration
     {
         public static void ConfigureService(this IServiceCollection services)
         {
-            // to do
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

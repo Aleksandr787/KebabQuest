@@ -2,6 +2,7 @@
 using KebabQuest.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using KebabQuest;
 
 namespace KebabQuest.Data.Configuration
 {

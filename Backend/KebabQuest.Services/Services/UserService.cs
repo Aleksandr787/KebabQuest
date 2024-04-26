@@ -16,6 +16,11 @@ namespace KebabQuest.Services.Services
             _userRepository = userRepository;
         }
 
-        public 
+        public async Task<string> RegisterUserAsync()
+        {
+            string createdToken = Guid.NewGuid().ToString();
+            await _userRepository.RegisterUserAsync(createdToken);
+            return createdToken;
+        }
     }
 }

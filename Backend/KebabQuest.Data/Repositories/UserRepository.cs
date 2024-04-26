@@ -14,6 +14,10 @@ namespace KebabQuest.Data.Repositories
         public UserRepository(MongoDataContext context, string collection) : base(context, collection)
         {}
 
-
+        public async Task RegisterUserAsync(string userNewToken)
+        {
+            var playerEntity = new Player() { Id = userNewToken };
+            await AddEntity(playerEntity);
+        }
     }
 }

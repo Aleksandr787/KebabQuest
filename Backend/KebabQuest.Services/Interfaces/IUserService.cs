@@ -8,5 +8,6 @@ namespace KebabQuest.Services.Services
 {
     public interface IUserService
     {
+        Task<string> RegisterUserAsync();
     }
 }
