@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using KebabQuest;
 using System.Xml.Linq;
 using KebabQuest.Data.DataContext;
+using KebabQuest.Data.Assets;
 
 namespace KebabQuest.Data.Configuration
 {
@@ -12,9 +13,7 @@ namespace KebabQuest.Data.Configuration
     {
         public static void ConfigurePrompts(this IServiceCollection services)
         {
-            string solutiondir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            var json = File.ReadAllText(solutiondir + "\\Backend\\" + "KebabQuest.Data" + "\\Assets\\prompts.json");
-            var promptsDto = JsonConvert.DeserializeObject<PromptsDto>(json)!;
+            var promptsDto = JsonConvert.DeserializeObject<PromptsDto>(Prompts.json)!;
 
             services.AddSingleton(promptsDto!);
         }

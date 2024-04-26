@@ -11,7 +11,7 @@ namespace KebabQuest.Data.Repositories
 {
     public class UserRepository : BaseRepository<Player>
     {
-        public UserRepository(MongoDataContext context, string collection) : base(context, collection)
+        public UserRepository(MongoDataContext context) : base(context, "users")
         {}
 
         public async Task RegisterUserAsync(string userNewToken)
