@@ -20,4 +20,21 @@ public class ChatGptProxyService : BaseChatGptService
     {
         _settings = settings.Value;
     }
+
+    public override Task<string> SendRequest(string prompt, string? content = null)
+    {
+        var bodyContent = JsonSerializer.Serialize(new
+        {
+            model = _settings.Model,
+            messages = new[]
+            {
+                new
+                {
+                    role = "user",
+                    content = prompt
+                }
+            }
+        });
+        return base.SendRequest(prompt, bodyContent);
+    }
 }

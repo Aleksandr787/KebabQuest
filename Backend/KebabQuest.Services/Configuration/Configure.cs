@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KebabQuest.Data.Settings;
+using KebabQuest.Services.Interfaces;
+using KebabQuest.Services.Services.AIModels;
 
 namespace KebabQuest.Services.Configuration
 {
@@ -13,6 +16,9 @@ namespace KebabQuest.Services.Configuration
         public static void ConfigureService(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+
+            services.AddSingleton<ChatGptProxyService>();
+            services.AddSingleton<ChatGptThebService>();
         }
     }
 }

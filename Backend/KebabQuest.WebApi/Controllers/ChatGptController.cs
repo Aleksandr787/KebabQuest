@@ -1,4 +1,5 @@
 ﻿using KebabQuest.Services.Interfaces;
+using KebabQuest.Services.Services.AIModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KebabQuest.WebApi.Controllers;
@@ -7,10 +8,10 @@ namespace KebabQuest.WebApi.Controllers;
 [ApiController]
 public class ChatGptController : ControllerBase
 {
-    private readonly IChatGptProxyService _chatGptProxyService;
-    private readonly IChatGptThebService _chatGptThebService;
+    private readonly ChatGptProxyService _chatGptProxyService;
+    private readonly ChatGptThebService _chatGptThebService;
     
-    public ChatGptController(IChatGptProxyService chatGptProxyService, IChatGptThebService chatGptThebService)
+    public ChatGptController(ChatGptProxyService chatGptProxyService, ChatGptThebService chatGptThebService)
     {
         _chatGptProxyService = chatGptProxyService;
         _chatGptThebService = chatGptThebService;

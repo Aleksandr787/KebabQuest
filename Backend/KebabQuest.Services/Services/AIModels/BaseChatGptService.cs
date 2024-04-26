@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace KebabQuest.Services.Services.AIModels;
 
-public class BaseChatGptService : IBaseChatGptService
+public class BaseChatGptService
 {
     private readonly ChatGptContext _chatGptContext;
     private readonly HttpClient _httpCLient = new();
@@ -17,28 +17,15 @@ public class BaseChatGptService : IBaseChatGptService
         _chatGptContext = chatGptContext;
     }
     
-    public async Task<string> SendRequest(string prompt)
+    public virtual async Task<string> SendRequest(string prompt, string? content = null)
     {
         var request = new HttpRequestMessage(HttpMethod.Post, CreateUrl("chat/completions"));
         SetHeaders(request);
-
-        var content = JsonSerializer.Serialize(new
+        if (content is null)
         {
-            model = _chatGptContext.Model,
-            messages = new[]
-            {
-                new
-                {
-                    role = "user",
-                    content = prompt
-                }
-            },
-            stream = false,
-            model_params = new
-            {
-                temperature = 1.0
-            }
-        });
+            throw new ArgumentException();
+        }
+        
         request.Content = new StringContent(content, Encoding.UTF8, "application/json");
         using var response = await _httpCLient.SendAsync(request);
         response.EnsureSuccessStatusCode();

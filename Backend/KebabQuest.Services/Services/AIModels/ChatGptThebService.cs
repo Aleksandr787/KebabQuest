@@ -10,7 +10,7 @@ namespace KebabQuest.Services.Services.AIModels;
 
 public class ChatGptThebService : BaseChatGptService
 {
-    private readonly ChatGptSettings _configuration;
+    private readonly ChatGptSettings _settings;
 
     public ChatGptThebService(IOptions<ChatGptSettings> settings) : base(new()
     {
@@ -19,6 +19,28 @@ public class ChatGptThebService : BaseChatGptService
         Model = settings.Value.Model
     })
     {
-        _configuration = settings.Value;
+        _settings = settings.Value;
+    }
+    
+    public override Task<string> SendRequest(string prompt, string? content = null)
+    {
+        var bodyContent = JsonSerializer.Serialize(new
+        {
+            model = _settings.Model,
+            messages = new[]
+            {
+                new
+                {
+                    role = "user",
+                    content = prompt
+                }
+            },
+            stream = false,
+            model_params = new
+            {
+                temperature = 1.0
+            }
+        });
+        return base.SendRequest(prompt, bodyContent);
     }
 }
