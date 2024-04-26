@@ -1,17 +1,18 @@
 ﻿services:
-  backend:
-    container_name: backend
+  kq-backend:
+    container_name: kq-backend
     build: "../backend"
     depends_on:
-      - mongo
-  nginx:
-    container_name: nginx
+      - kq-mongo
+  kq-nginx:
+    container_name: kq-nginx
     image: nginx:1.23.3
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on: 
-      - backend
-  mongo:
+      - kq-backend
+  kq-mongo:
+    container_name: kq-mongo
     image: mongo:latest
     restart: always
     

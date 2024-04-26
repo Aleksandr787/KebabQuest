@@ -1,13 +1,13 @@
 ﻿services: 
-  backend:
+  kq-backend:
     environment:
-      - ASPNET-CORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5243:80"
-  nginx:
+  kq-nginx:
     ports:
       - "80:80"
-  mongo:
+  kq-mongo:
     ports:
       - 27017:27017
     environment:
