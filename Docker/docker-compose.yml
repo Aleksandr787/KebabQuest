@@ -1,9 +1,12 @@
 ﻿services:
   kq-backend:
     container_name: kq-backend
-    build: "../Backend"
+    build: ../Backend
     depends_on:
       - kq-mongo
+  kq-frontend:
+    container_name: kq-frontend
+    build: ../Frontend
   kq-nginx:
     container_name: kq-nginx
     image: nginx:1.23.3
@@ -11,6 +14,7 @@
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on: 
       - kq-backend
+      - kq-frontend
   kq-mongo:
     container_name: kq-mongo
     image: mongo:latest

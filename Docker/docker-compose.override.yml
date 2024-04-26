@@ -4,6 +4,9 @@
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5243:80"
+  kq-frontend:
+    ports: 
+      - "8080:80"
   kq-nginx:
     ports:
       - "80:80"
