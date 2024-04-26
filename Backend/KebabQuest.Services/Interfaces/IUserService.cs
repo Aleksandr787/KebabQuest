@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KebabQuest.Services.Helpers
+namespace KebabQuest.Services.Services
 {
-    public class DataMapper
+    public interface IUserService
     {
-
+        Task<string> RegisterUserAsync();
     }
 }

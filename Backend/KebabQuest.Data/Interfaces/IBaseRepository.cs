@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KebabQuest.Data.Interfaces
 {
-    internal interface IBaseRepository<TEntity> where TEntity : class
+    public interface IBaseRepository<TEntity> where TEntity : class
     {
         Task<TEntity> GetById(string id);
         Task<List<TEntity>> SearchEntities(Func<TEntity, bool> predicate);

@@ -1,6 +1,8 @@
 ﻿using KebabQuest.Data.Dto;
+using KebabQuest.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using KebabQuest;
 
 namespace KebabQuest.Data.Configuration
 {
@@ -16,7 +18,7 @@ namespace KebabQuest.Data.Configuration
 
         public static void ConfigureRepositories(this IServiceCollection services)
         {
-            // to do
+            services.AddScoped<UserRepository>();
         }
     }
 }
