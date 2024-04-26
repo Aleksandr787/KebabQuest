@@ -1,6 +1,3 @@
-using KebabQuest.Data.Configuration;
-using KebabQuest.Services.Configuration;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,9 +7,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.ConfigureAllSettings(builder.Configuration, builder.Environment.IsDevelopment());
 builder.Services.ConfigureRepositories();
 builder.Services.ConfigurePrompts();
 builder.Services.ConfigureService();
+
 
 var app = builder.Build();
 
