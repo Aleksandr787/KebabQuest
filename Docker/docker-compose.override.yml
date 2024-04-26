@@ -1,0 +1,16 @@
+﻿services: 
+  backend:
+    environment:
+      - ASPNET-CORE_ENVIRONMENT=Development
+    ports:
+      - "5243:80"
+  nginx:
+    ports:
+      - "80:80"
+  mongo:
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: hb

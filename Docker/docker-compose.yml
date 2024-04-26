@@ -1,0 +1,17 @@
+﻿services:
+  backend:
+    container_name: backend
+    build: "../backend"
+    depends_on:
+      - mongo
+  nginx:
+    container_name: nginx
+    image: nginx:1.23.3
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on: 
+      - backend
+  mongo:
+    image: mongo:latest
+    restart: always
+    
