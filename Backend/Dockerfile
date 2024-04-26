@@ -1,15 +1,22 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-ARG BUILD_CONFIGURATION=Release
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+ARG BUILD_CONFIGURATION=Development
 WORKDIR /src
-COPY ["./KebabQuest.WebApi/KebabQuest.WebApi.csproj", "./"]
-RUN dotnet restore "KebabQuest.WebApi.csproj"
+
+COPY *.sln .
+COPY KebabQuest.WebApi/*.csproj ./KebabQuest.WebApi/
+COPY KebabQuest.Services/*.csproj ./KebabQuest.Services/
+COPY KebabQuest.Data/*.csproj ./KebabQuest.Data/
+
+RUN dotnet restore
+
 COPY . .
-WORKDIR "/src/"
+
+WORKDIR /src/KebabQuest.WebApi/
 RUN dotnet build "KebabQuest.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
