@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Set the locale to Russian
+export LC_ALL=ru_RU.UTF-8
+
+# Get the absolute path of the script's directory
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P )
+
+backend_folder="$parent_path/../Backend"
+solution_file="./KebabQuest.WebApi/KebabQuest.WebApi.sln"
+echo "$backend_folder"
+
+# Check backend
+BACKEND_FILES=$(git diff --cached --name-only --diff-filter=ACMRTUXB | grep '^Backend' | sed 's/Backend\///')
+if [[ ${#BACKEND_FILES} > 0 ]]; then
+	pushd "$backend_folder"
+	
+	dotnet-format "$solution_file" --check -v m
+	val=$?
+
+	if [ $val -ne 0 ]; then
+		echo -en "Backend code not formatted"
+		exit 1
+	fi
+
+	popd
+fi
+
+exit 0
