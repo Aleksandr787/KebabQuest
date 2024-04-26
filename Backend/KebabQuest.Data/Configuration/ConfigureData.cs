@@ -10,7 +10,7 @@ namespace KebabQuest.Data.Configuration
     {
         public static void ConfigurePrompts(this IServiceCollection services)
         {
-            var json = File.ReadAllText("Assets/Prompts/ruPrompts.json");
+            var json = File.ReadAllText("..\\\\KebabQuest.Data\\Assets\\prompts.json");
             var promptsDto = JsonConvert.DeserializeObject<PromptsDto>(json)!;
 
             services.AddSingleton(promptsDto!);
