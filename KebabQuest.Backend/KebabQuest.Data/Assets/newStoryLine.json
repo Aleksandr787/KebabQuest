@@ -1,0 +1,23 @@
+{
+  "title": "",
+  "plot": "",
+  "gameColors": "",
+  "mainPlayer": {
+    "gender": "",
+    "race": "",
+    "appearance": {
+      "hair": "",
+      "clothes": {
+        "top": "",
+        "bottom": "",
+        "accessories": ""
+      }
+    }
+  },
+  "question": "",
+  "options": {
+    "option1": "",
+    "option2": "",
+    "option3": ""
+  }
+}
