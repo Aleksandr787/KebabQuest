@@ -7,7 +7,7 @@ export LC_ALL=ru_RU.UTF-8
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P )
 
 backend_folder="$parent_path/../Backend"
-solution_file="./KebabQuest.WebApi/KebabQuest.WebApi.sln"
+solution_file="./KebabQuest.Backend.sln"
 echo "$backend_folder"
 
 # Check backend
