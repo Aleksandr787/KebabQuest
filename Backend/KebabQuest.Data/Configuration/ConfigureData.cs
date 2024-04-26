@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using KebabQuest;
 using System.Xml.Linq;
+using KebabQuest.Data.DataContext;
 
 namespace KebabQuest.Data.Configuration
 {
@@ -20,6 +21,7 @@ namespace KebabQuest.Data.Configuration
 
         public static void ConfigureRepositories(this IServiceCollection services)
         {
+            services.AddScoped<MongoDataContext>();
             services.AddScoped<UserRepository>();
         }
     }
