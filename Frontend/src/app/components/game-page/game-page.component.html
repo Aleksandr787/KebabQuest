@@ -1,0 +1,32 @@
+<button (click)="generateGameStory()" style="width: 100%; margin-bottom: 16px;" mat-stroked-button>Generate</button>
+
+<div class="test">
+    <img *ngIf="story" class="image" src="data:image/png;base64, {{story.image}}" alt="">
+    <img *ngIf="!story" class="image" src="assets\images\image1.jpg" alt="">
+    <div class="button-menu">
+        <button mat-mini-fab (click)="toStartPage()" style="border-radius: 8px; margin: 8px;" color="primary">
+            <mat-icon>home</mat-icon>
+        </button>
+    </div>
+</div>
+<div class="description">
+    <p>{{story?.text}}</p>
+</div>
+<mat-radio-group style="
+width: 100%; 
+display: flex;
+flex-direction: column;
+gap: 12px;
+border-radius: 8px;
+box-sizing: border-box;
+padding-block: 16px;
+" aria-labelledby="example-radio-group-label">
+    @for (answer of answers; track answer) {
+    <mat-radio-button style="
+border: 2px solid var(--border-primary-2);
+border-radius: 8px;
+box-sizing: border-box;
+padding: 8px;" color="primary" [value]="answer">{{answer}}</mat-radio-button>
+    }
+</mat-radio-group>
+<button style="width: 100%; margin-top: 16px;" mat-stroked-button>Next</button>
