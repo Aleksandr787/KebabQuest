@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KebabQuest.Data.Models;
 
 namespace KebabQuest.Services.Services
 {
@@ -27,9 +28,18 @@ namespace KebabQuest.Services.Services
             return (await _gameSampleRepository.GetAll()).Select(f => DataMapper.MapToNewGameDto(f)).ToList();
         }
 
-        public async Task Generate()
+        public async Task<GameRoomSample> GetById(string sampleId)
         {
-            for(int i = 0; i < 6; i++)
+            var sample = await _gameSampleRepository.GetById(sampleId);
+            return sample ?? throw new ArgumentException("Game sample was not found");
+        }
+
+        public async Task SeedData()
+        {
+            _gameSampleRepository.CleanUpDocument();
+            const int gameSamplesCount = 6;
+            
+            for(var i = 0; i < gameSamplesCount; i++)
             {
                 var newStoryLine = await _gameLogicService.GenerateNewStory();
                 var image = await _gameLogicService.GenerateInitialImage(newStoryLine);

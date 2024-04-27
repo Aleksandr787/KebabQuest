@@ -16,15 +16,30 @@ namespace KebabQuest.Services.Services
         private readonly IGameRoomService _gameRoomService;
         private readonly IGameLogicService _gameLogicService;
         private readonly IUserService _userService;
+        private readonly IGameSampleService _gameSampleService;
 
-
-        public GameService(IGameRoomService gameRoomService, IGameLogicService gameLogicService, IUserService userService)
+        public GameService(
+            IGameRoomService gameRoomService,
+            IGameLogicService gameLogicService,
+            IUserService userService,
+            IGameSampleService gameSampleService)
         {
             _gameRoomService = gameRoomService;
             _gameLogicService = gameLogicService;
             _userService = userService;
+            _gameSampleService = gameSampleService;
         }
-
+        
+        public async Task<NewGameDto> StartGameFromGameSample(string sampleId)
+        {
+            var gameSample = await _gameSampleService.GetById(sampleId);
+            var newStoryLineJsonDto = DataMapper.MapToNewStoryLineJsonDto(gameSample);
+            var newQuestion = await _gameLogicService.GenerateFirstQuestion(newStoryLineJsonDto);
+            var newGameRoomDto = DataMapper.MapToGameRoom(newStoryLineJsonDto, gameSample.Image!, newQuestion);
+            var gameId = await _gameRoomService.CreateGameRoom(newGameRoomDto);
+            newGameRoomDto.Id = gameId;
+            return DataMapper.MapToNewGameDto(newGameRoomDto, newGameRoomDto.Steps!.First());
+        }
 
         public async Task<NewGameDto> GenerateNewGameRoom(string userId)
         {

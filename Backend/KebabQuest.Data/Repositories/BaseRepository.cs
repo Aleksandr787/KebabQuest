@@ -13,7 +13,7 @@ namespace KebabQuest.Data.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        private readonly IMongoCollection<TEntity> _collection;
+        protected readonly IMongoCollection<TEntity> _collection;
         private readonly MongoDataContext _context;
 
         public BaseRepository(MongoDataContext context, string collection)

@@ -12,5 +12,6 @@ namespace KebabQuest.Data.Dto
         public string NewQuestion { get; set; } = "";
         public string InitialImage { get; set; } = "";
         public string ImagePerStep { get; set; } = "";
+        public string InitialQuestion { get; set; } = "";
     }
 }

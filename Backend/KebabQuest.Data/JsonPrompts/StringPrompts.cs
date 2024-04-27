@@ -14,7 +14,8 @@ namespace KebabQuest.Data.JsonPrompts
             { "newStoryLine", "Твой ответ заполненный этот JSON объект на русском" },
             { "newQuestion", "Сгенерируй новый вопрос для игры основываясь на предыдущих ответах и верни мне в виде данного джсон объекта" },
             { "initialImage", "Обложка для квест игры" },
-            { "imagePerStep", "Рисуй данную ситуацию для игры" }
+            { "imagePerStep", "Рисуй данную ситуацию для игры" },
+            { "initialQuestion", "Придумывай первую начальную историю для данной квест игры" }
         };
 
         public static string GetPrompts => JsonObject.ToString();

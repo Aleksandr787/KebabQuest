@@ -17,13 +17,13 @@ namespace KebabQuest.WebApi.Controllers
         }
 
 
-        [HttpPost("[action]")]
+        [HttpPost("get-samples")]
         public async Task<ActionResult<ICollection<NewGameDto>>> GetGameSamples()
         {
             try
             {
-                var NewStoryLineJsonDto = await _newStoryLineDtoService.GetGameSamples();
-                return Ok(NewStoryLineJsonDto);
+                var newStoryLineJsonDto = await _newStoryLineDtoService.GetGameSamples();
+                return Ok(newStoryLineJsonDto);
             }
             catch (Exception ex)
             {
@@ -31,12 +31,12 @@ namespace KebabQuest.WebApi.Controllers
             }
         }
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> Generate()
+        [HttpPost("seed-data")]
+        public async Task<IActionResult> SeedData()
         {
             try
             {
-                await _newStoryLineDtoService.Generate();
+                await _newStoryLineDtoService.SeedData();
                 return Ok();
             }
             catch (Exception ex)

@@ -86,6 +86,29 @@ public class GameLogicService : IGameLogicService
         return await _kandinskyService.GenerateImage(prompt);
     }
 
+    public async Task<NewQuestionJsonDto> GenerateFirstQuestion(NewStoryLineJsonDto newStoryLineJsonDto)
+    {
+        var prompt = $"{_stringPrompts.InitialImage} ${NewQuestion.JsonPrompt}";
+        var messages = new JArray
+        {
+            new JObject
+            {
+                { "role", "assistant" },
+                { "content", GetInfoForFirstQuestion(newStoryLineJsonDto) }
+            },
+            new JObject
+            {
+                { "role", "user" },
+                { "content", prompt }
+            }
+        };
+
+        var newQuestionJsonString = await _chatGptProxyService.SendRequest(null, messages);
+        var newQuestionDtoModel = JsonConvert.DeserializeObject<NewQuestionJsonDto>(newQuestionJsonString);
+        if (newQuestionDtoModel is null) throw new InvalidOperationException("New question model was not created correctly");
+        return newQuestionDtoModel;
+    }
+
     public async Task<NewQuestionJsonDto> GenerateNewQuestion(GameRoom gameRoom)
     {
         var messages = new JArray
@@ -123,7 +146,6 @@ public class GameLogicService : IGameLogicService
         };
         messages.Add(promptModel);
         
-        Console.WriteLine(messages.ToString());
         var newQuestionJson = await _chatGptProxyService.SendRequest(null, messages);
         var newQuestionDto = JsonConvert.DeserializeObject<NewQuestionJsonDto>(newQuestionJson);
         if (newQuestionDto is null) throw new InvalidOperationException("New question model was not created correctly");
@@ -159,5 +181,17 @@ public class GameLogicService : IGameLogicService
     {
         var info = $"Main player: ${mainPlayer.Race}, ${mainPlayer.Gender}";
         return info;
+    }
+
+    private string GetInfoForFirstQuestion(NewStoryLineJsonDto newStoryLineJsonDto)
+    {
+        var info = new JObject
+        {
+            { "title", newStoryLineJsonDto.Title },
+            { "plot", newStoryLineJsonDto.Plot },
+            { "mainPlayer", JObject.FromObject(newStoryLineJsonDto.MainPlayer) },
+        };
+
+        return info.ToString();
     }
 }

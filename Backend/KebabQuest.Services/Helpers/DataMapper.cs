@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace KebabQuest.Services.Helpers
 {
     public static class DataMapper
     {
-        public static GameRoom MapToGameRoom(NewStoryLineJsonDto dto, string image)
+        public static GameRoom MapToGameRoom(NewStoryLineJsonDto dto, string image, NewQuestionJsonDto? questionDto = null)
         {
             return new()
             {
@@ -22,8 +23,8 @@ namespace KebabQuest.Services.Helpers
                 {
                     new ()
                     {
-                        Question = dto.Question,
-                        Options = dto.Options,
+                        Question = questionDto?.Question ?? dto.Question,
+                        Options = questionDto?.Options ?? dto.Options,
                         Image = image
                     }
                 }
@@ -72,6 +73,16 @@ namespace KebabQuest.Services.Helpers
                 Image = gameRoomSample.Image,
                 Plot = gameRoomSample.Plot,
                 Title = gameRoomSample.Title
+            };
+        }
+
+        public static NewStoryLineJsonDto MapToNewStoryLineJsonDto(GameRoomSample gameRoomSample)
+        {
+            return new()
+            {
+                Title = gameRoomSample.Title,
+                Plot = gameRoomSample.Plot,
+                MainPlayer = gameRoomSample.MainPlayer
             };
         }
 

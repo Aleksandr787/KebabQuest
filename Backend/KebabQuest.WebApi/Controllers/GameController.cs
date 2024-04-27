@@ -54,6 +54,20 @@ namespace KebabQuest.WebApi.Controllers
             }
         }
 
+        [HttpGet("game-from-sample/{sampleId}")]
+        public async Task<IActionResult> StartGameFromSample(string sampleId)
+        {
+            try
+            {
+                var newGame = await _gameService.StartGameFromGameSample(sampleId);
+                return Ok(newGame);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost("new-game/{userId}")]
         public async Task<ActionResult<NewGameDto>> GenerateNewGameRoom(string userId)
         {
