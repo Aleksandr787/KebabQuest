@@ -72,8 +72,8 @@ namespace KebabQuest.WebApi.Controllers
         {
             try
             {
-                var newGameDto = await _gameService.DoStep(roomId, questStep);
-                return Ok(newGameDto);
+                var newStep = await _gameService.DoStep(roomId, questStep);
+                return Ok(newStep);
             }
             catch (Exception e)
             {
