@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Router, RouterOutlet} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
@@ -10,9 +10,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import {FormsModule} from '@angular/forms';
-import { GameService } from '../../services/game.service';
+import {GameService} from '../../services/game.service';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { GameStory } from '../../interfaces/gameCard';
+import {GameStory} from '../../interfaces/gameCard';
 
 @Component({
   selector: 'app-game-page',
@@ -35,16 +35,16 @@ import { GameStory } from '../../interfaces/gameCard';
   styleUrl: './game-page.component.scss'
 })
 export class GamePageComponent implements OnInit {
-  public answers: string[] = ['Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'Voluptates corporis enim sed, eum debitis eius id earum modi deserunt at eveniet quas inventore tempore perspiciatis aperiam blanditiis', 'Summer'];
-
-  private _isLoading: boolean = false;
-  public story: GameStory | undefined;
-
   constructor(
-    private _gameService: GameService,
-    private _router: Router
+    private readonly _gameService: GameService,
+    private readonly _router: Router
+  ) {
+  }
 
-  ) {}
+  public answers: string[] = ['Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'Voluptates corporis enim sed, eum debitis eius id earum modi deserunt at eveniet quas inventore tempore perspiciatis aperiam blanditiis', 'Summer'];
+  private _isLoading: boolean = false;
+
+  public story: GameStory | undefined;
 
   public ngOnInit(): void {
     // this.generateGameStory();
@@ -58,7 +58,6 @@ export class GamePageComponent implements OnInit {
   }
 
   public generateGameStory() {
-    console.log(322);
     this._isLoading = true;
 
     this._gameService.getStory().subscribe((story: GameStory) => {
@@ -68,7 +67,7 @@ export class GamePageComponent implements OnInit {
   }
 
 
-  public toStartPage(){
+  public toStartPage() {
     this._router.navigate(["start"]);
   }
 

@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
-import {filter, Observable, of, switchMap, tap} from "rxjs";
+import {Observable, of, switchMap, tap} from "rxjs";
 import {fromLocalStorage} from "../utils/local-storage";
 import {HttpClient} from "@angular/common/http";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthService {
   public constructor(private readonly _httpClient: HttpClient) {
   }
