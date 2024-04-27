@@ -1,6 +1,7 @@
 ﻿using KebabQuest.Data.Dto;
 using KebabQuest.Data.Models;
 using KebabQuest.Data.Repositories;
+using KebabQuest.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace KebabQuest.Services.Services
 {
     public class GameService : IGameService
     {
-        private readonly GameRoomRepository _gameRoomRepository;
+        private readonly IGameRoomService _gameRoomService;
+        private readonly  _gameService;
 
 
         public GameService() { }
@@ -32,7 +34,12 @@ namespace KebabQuest.Services.Services
 
         }
 
-        public async Task<ICollection<string>?> GetAllGameRooms(string userToken)
+        public async Task<ICollection<string>?> GetAllGameRooms(string userId)
+        {
+
+        }
+
+        public async Task<QuestStep> DoStep(QuestStep step, string roomId)
         {
 
         }
