@@ -1,54 +1,19 @@
-<div *ngIf="cards.length > 0" class="container-cards">
+<ng-container *ngIf="cards$ | async as cards">
+  <div *ngIf="cards.length > 0" class="container-cards">
     <div (click)="selectGame()" matRipple class="card">
-        <img src="assets\images\image1.jpg" alt="" class="card__image">
-        <div class="card__info">
-            <span class="card__info__name">Random</span>
-        </div>
+      <img src="assets\images\image1.jpg" alt="Random image" class="card__image">
+      <div class="card__info">
+        <span class="card__info__name">Random</span>
+      </div>
     </div>
 
     @for (card of cards; track card) {
-        <div matRipple class="card">
-            <img class="card__image" src="data:image/png;base64, {{card.image}}" alt="">
-            <div class="card__info">
-                <span class="card__info__name">{{card.title}}</span>
-            </div>
+      <div (click)="selectGame(card)" matRipple class="card">
+        <img class="card__image" src="data:image/png;base64, {{card.image}}" alt="Template image">
+        <div class="card__info">
+          <span class="card__info__name">{{ card.title }}</span>
         </div>
+      </div>
     }
-    <!-- НЕ УДАЛЯЯЯЯЯТЬ -->
-    <!-- <div matRipple class="card">
-        <img src="assets\images\image1.jpg" alt="" class="card__image">
-        <div class="card__info">
-            <span class="card__info__name">Random</span>
-        </div>
-    </div>
-    <div matRipple class="card">
-        <img src="assets\images\image1.jpg" alt="" class="card__image">
-        <div class="card__info">
-            <span class="card__info__name">Random</span>
-        </div>
-    </div>
-    <div matRipple class="card">
-        <img src="assets\images\image1.jpg" alt="" class="card__image">
-        <div class="card__info">
-            <span class="card__info__name">Random</span>
-        </div>
-    </div>
-    <div matRipple class="card">
-        <img src="assets\images\image1.jpg" alt="" class="card__image">
-        <div class="card__info">
-            <span class="card__info__name">Random</span>
-        </div>
-    </div>
-    <div matRipple class="card">
-        <img src="assets\images\image1.jpg" alt="" class="card__image">
-        <div class="card__info">
-            <span class="card__info__name">Random</span>
-        </div>
-    </div> -->
-</div>
-<div (click)="selectGame()" matRipple class="card">
-    <img src="assets\images\image1.jpg" alt="" class="card__image">
-    <div class="card__info">
-        <span class="card__info__name">Random</span>
-    </div>
-</div>
+  </div>
+</ng-container>

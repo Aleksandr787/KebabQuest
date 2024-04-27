@@ -1,9 +1,10 @@
 export interface IGameCard {
+  id?: string;
   image: string;
   title: string;
 }
 
-export interface GameStory {
+export interface IGameStory {
   id: string;
   plot: string;
   image: string;
@@ -14,7 +15,7 @@ export interface GameStory {
   }
 }
 
-export interface GameNextStep {
+export interface IGameNextStep {
   question: string;
   image: string;
   answer: string;

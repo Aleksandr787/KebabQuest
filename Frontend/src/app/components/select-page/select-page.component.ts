@@ -1,28 +1,30 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatRippleModule } from '@angular/material/core';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { Router, RouterOutlet } from '@angular/router';
-import { IGameCard } from '../../interfaces/gameCard';
-import { GameService } from '../../services/game.service';
+import {CommonModule} from '@angular/common';
+import {Component} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatRippleModule} from '@angular/material/core';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
+import {Router, RouterOutlet} from '@angular/router';
+import {IGameCard} from '../../interfaces/gameCard';
+import {GameSampleService} from "../../services/game-sample.service";
+import {Observable, shareReplay} from "rxjs";
+import {AppRoutes, GlobalQueryParams} from "../../app.routes";
 
 @Component({
   selector: 'app-select-page',
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     RouterOutlet,
-    MatButtonModule, 
-    MatDividerModule, 
+    MatButtonModule,
+    MatDividerModule,
     MatIconModule,
     MatCardModule,
     MatInputModule,
@@ -36,27 +38,23 @@ import { GameService } from '../../services/game.service';
   templateUrl: './select-page.component.html',
   styleUrl: './select-page.component.scss'
 })
-export class SelectPageComponent implements OnInit {
-  
-  public cards: IGameCard[] = [];
-  
+export class SelectPageComponent {
   constructor(
-    private _gameService: GameService,
-    private _router: Router
-  ) {}
-
-  public ngOnInit(): void {
-    // this.loadGameCards();   
+    private readonly _gameSampleService: GameSampleService,
+    private readonly _router: Router
+  ) {
   }
 
-  public loadGameCards(): void {
-    // создать сервис User и там стучатся до контролера по типу getUserGameCards и доставать те карточки, которые есть у юзера 
-    // ( ЧТобы он мог продолжить игру)
-    // id проверять есть ли он в куках или локал сторадже и тогда доставать карточки иначе просто предлагать рандомную тему
-  }
+  protected readonly cards$: Observable<IGameCard[]> = this._gameSampleService.getSamples().pipe(
+    shareReplay({
+      bufferSize: 1,
+      refCount: true
+    })
+  );
 
-  public selectGame(): void {
-    this._gameService.generateGameStory();
-    this._router.navigate(["game"]);
+  public selectGame(card: IGameCard | null = null): void {
+    this._router.navigate([AppRoutes.GAME], {
+      queryParams: {[GlobalQueryParams.TEMPLATE_ID]: card?.id}
+    }).then();
   }
 }
