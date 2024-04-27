@@ -19,5 +19,15 @@ namespace KebabQuest.Data.Repositories
             var playerEntity = new Player() { Id = userNewToken };
             await AddEntity(playerEntity);
         }
+
+        public async Task<Player> GetById(string userToken)
+        {
+            return await GetById(userToken);
+        }
+
+        public async Task Update(string userToken, string gameRoomId)
+        {
+            await Update(userToken, gameRoomId); 
+        }
     }
 }

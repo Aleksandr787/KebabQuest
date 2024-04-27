@@ -8,6 +8,6 @@ namespace KebabQuest.Data.Models
 {
     public class Player : Base
     {
-        public ICollection<string>? GameIds { get; set; }
+        public ICollection<string>? GameRoomIds { get; set; }
     }
 }
