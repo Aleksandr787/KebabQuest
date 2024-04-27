@@ -1,12 +1,12 @@
-﻿services:
-  #kq-frontend:
-  #  container_name: kq-frontend
-  #  build: Frontend
-  #  ports:
-  #    - "80:4200"
-  #  volumes:
-  #    - ./Frontend:/project
-  #    - /project/node_modules
+services:
+  kq-frontend:
+    container_name: kq-frontend
+    build: Frontend
+    ports:
+      - "80:4200"
+    volumes:
+      - ./Frontend:/project
+      - /project/node_modules
   kq-backend:
     container_name: kq-backend
     build: Backend
