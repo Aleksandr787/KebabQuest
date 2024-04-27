@@ -9,7 +9,7 @@ namespace KebabQuest.Data.JsonPrompts
 {
     public static class NewQuestion
     {
-        private static JObject JsonObject = new()
+        private static readonly JObject JsonObject = new()
         {
             { "question", "" },
             {

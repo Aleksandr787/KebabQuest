@@ -9,6 +9,6 @@ public interface IGamePromptService
     Task<NewQuestionJsonDto> GenerateNewQuestion(GameRoom gameRoom);
     Task<NewStoryLineJsonDto> GenerateNewStoryTheb();
     Task<string> GenerateInitialImage(GameRoom gameRoom);
-    Task<string> GenerateImagePerStep(GameRoom gameRoom);
+    Task<string> GenerateImagePerStep(GameRoom gameRoom, QuestStep questStep);
 
 }

@@ -10,5 +10,7 @@ namespace KebabQuest.Data.Dto
     {
         public string NewStoryLine { get; set; } = "";
         public string NewQuestion { get; set; } = "";
+        public string InitialImage { get; set; } = "";
+        public string ImagePerStep { get; set; } = "";
     }
 }

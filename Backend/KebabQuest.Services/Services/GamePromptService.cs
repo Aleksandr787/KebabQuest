@@ -2,6 +2,7 @@
 using KebabQuest.Data.JsonPrompts;
 using KebabQuest.Data.Models;
 using KebabQuest.Data.Settings;
+using KebabQuest.Services.Helpers;
 using KebabQuest.Services.Interfaces;
 using KebabQuest.Services.Services.AIModels;
 using Newtonsoft.Json;
@@ -73,14 +74,16 @@ public class GamePromptService : IGamePromptService
         return newGameDto;
     }
 
-    public Task<string> GenerateInitialImage(GameRoom gameRoom)
+    public async Task<string> GenerateInitialImage(GameRoom gameRoom)
     {
-        throw new NotImplementedException();
+        var prompt = $"{_stringPrompts.InitialImage} {InfoPromptForInitialImage(gameRoom)}";
+        return await _kandinskyService.GenerateImage(prompt);
     }
 
-    public Task<string> GenerateImagePerStep(GameRoom gameRoom)
+    public async Task<string> GenerateImagePerStep(GameRoom gameRoom, QuestStep questStep)
     {
-        throw new NotImplementedException();
+        var prompt = $"{_stringPrompts.ImagePerStep} {InfoPromptForImagePerStep(gameRoom, questStep)}";
+        return await _kandinskyService.GenerateImage(prompt);
     }
 
     public async Task<NewQuestionJsonDto> GenerateNewQuestion(GameRoom gameRoom)
@@ -90,7 +93,7 @@ public class GamePromptService : IGamePromptService
             new JObject
             {
                 { "role", "system" },
-                { "content", $"{gameRoom.Title}\n{gameRoom.Plot}\n{GetMainPlayerInfo(gameRoom.MainPlayer!)}" }
+                { "content", $"{gameRoom.Title}\n{gameRoom.Plot}\n{GetMainPlayerInfoForNewQuestion(gameRoom.MainPlayer!)}" }
             }
         };
 
@@ -125,7 +128,32 @@ public class GamePromptService : IGamePromptService
         return newQuestionDto;
     }
 
-    private string GetMainPlayerInfo(MainPlayer mainPlayer)
+    private string InfoPromptForInitialImage(GameRoom gameRoom)
+    {
+        var info = new JObject
+        {
+            { "title", gameRoom.Title },
+            { "gameColors", gameRoom.GameColors },
+            { "mainPlayer", JObject.FromObject(gameRoom.MainPlayer!) }
+        };
+
+        return info.GetValidPromptForImage();
+    }
+
+    private string InfoPromptForImagePerStep(GameRoom gameRoom, QuestStep questStep)
+    {
+        var info = new JObject
+        {
+            { "question", questStep.Question},
+            { "answer", questStep.Answer},
+            { "gameColors", gameRoom.GameColors },
+            { "mainPlayer", JObject.FromObject(gameRoom.MainPlayer!) }
+        };
+
+        return info.GetValidPromptForImage();
+    }
+
+    private string GetMainPlayerInfoForNewQuestion(MainPlayer mainPlayer)
     {
         var info = $"Main player: ${mainPlayer.Race}, ${mainPlayer.Gender}";
         return info;
