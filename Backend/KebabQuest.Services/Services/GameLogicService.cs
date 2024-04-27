@@ -90,7 +90,7 @@ public class GameLogicService : IGameLogicService
 
     public async Task<NewQuestionJsonDto> GenerateFirstQuestion(NewStoryLineJsonDto newStoryLineJsonDto)
     {
-        var prompt = $"{_stringPrompts.InitialImage} ${NewQuestion.JsonPrompt}";
+        var prompt = $"{_stringPrompts.InitialQuestion} ${NewQuestion.JsonPrompt}";
         var messages = new JArray
         {
             new JObject
