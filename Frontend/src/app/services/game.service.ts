@@ -24,7 +24,7 @@ export class GameService {
 
   public getNextStepStory(answer: string): Observable<GameNextStep> {
     let roomId = localStorage.getItem("roomId");
-    return this._httpClient.post<GameNextStep>(`api/Game/new-game/${roomId}`, {answer: answer});
+    return this._httpClient.post<GameNextStep>(`api/Game/do-step/${roomId}`, {answer: answer});
   }
 
   public getGame(): Observable<GameStory> {
