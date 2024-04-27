@@ -11,5 +11,5 @@ public interface IGameLogicService
     Task<NewStoryLineJsonDto> GenerateNewStoryTheb();
     Task<string> GenerateInitialImage(NewStoryLineJsonDto newStoryLine);
     Task<string> GenerateImagePerStep(GameRoom gameRoom, QuestStep questStep);
-
+    Task<bool> IsAnswerValid(string answer);
 }

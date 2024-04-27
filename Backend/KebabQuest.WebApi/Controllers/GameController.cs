@@ -67,6 +67,14 @@ namespace KebabQuest.WebApi.Controllers
                 return BadRequest(e.Message);
             }
         }
+        
+        [HttpGet("is-valid")]
+        public async Task<IActionResult> IsAnswerValid([FromQuery] string answer)
+        {
+            // just for testing the validation of user answers
+            var isValid = await _gameService.IsAnswerValid(answer);
+            return Ok(isValid);
+        }
 
         [HttpPost("new-game/{userId}")]
         public async Task<ActionResult<NewGameDto>> GenerateNewGameRoom(string userId)

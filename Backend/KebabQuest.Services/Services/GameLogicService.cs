@@ -84,8 +84,25 @@ public class GameLogicService : IGameLogicService
 
     public async Task<string> GenerateImagePerStep(GameRoom gameRoom, QuestStep questStep)
     {
-        var prompt = $"{_stringPrompts.ImagePerStep} {InfoPromptForImagePerStep(gameRoom, questStep)}";
+        var prompt = $"{_stringPrompts.ImagePerStep} {await InfoPromptForImagePerStep(gameRoom, questStep)}";
         return await _kandinskyService.GenerateImage(prompt);
+    }
+
+    public async Task<bool> IsAnswerValid(string answer)
+    {
+        var prompt = $" Текст:{answer} {_stringPrompts.ValidateAnswer}.";
+
+        var messages = new JArray
+        {
+            new JObject
+            {
+                { "role", "user" },
+                { "content", prompt }
+            }
+        };
+
+        var isValid = await _chatGptProxyService.SendRequest(null, messages);
+        return isValid == "1";
     }
 
     public async Task<NewQuestionJsonDto> GenerateFirstQuestion(NewStoryLineJsonDto newStoryLineJsonDto)
@@ -168,15 +185,25 @@ public class GameLogicService : IGameLogicService
         return info.GetValidPromptForImage();
     }
 
-    private string InfoPromptForImagePerStep(GameRoom gameRoom, QuestStep questStep)
+    private async Task<string> InfoPromptForImagePerStep(GameRoom gameRoom, QuestStep questStep)
     {
         var info = new JObject
         {
             { "question", questStep.Question},
-            { "answer", questStep.Answer},
             { "gameColors", gameRoom.GameColors },
             { "mainPlayer", JObject.FromObject(gameRoom.MainPlayer!) }
         };
+
+        if (questStep.Answer is null)
+        {
+            return info.GetValidPromptForImage();
+        }
+        
+        var isValid = await IsAnswerValid(questStep.Answer);
+        if (isValid)
+        {
+            info.Add(new JProperty("answer", questStep.Answer));
+        }
 
         return info.GetValidPromptForImage();
     }

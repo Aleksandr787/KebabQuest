@@ -16,5 +16,6 @@ namespace KebabQuest.Services.Interfaces
         Task<IList<NewGameDto>> GetAllGameRooms(string userId);
         Task RemoveRoom(string userId, string gameRoomId);
         Task<QuestStep> DoStep(string roomId, string answer);
+        Task<bool> IsAnswerValid(string answer);
     }
 }

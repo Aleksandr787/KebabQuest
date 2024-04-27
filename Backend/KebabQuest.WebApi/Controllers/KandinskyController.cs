@@ -21,4 +21,5 @@ public class KandinskyController : ControllerBase
         var imageString = await _kandinskyService.GenerateImage(prompt);
         return Ok(imageString);
     }
+
 }

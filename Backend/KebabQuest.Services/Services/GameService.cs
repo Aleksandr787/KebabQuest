@@ -96,7 +96,6 @@ namespace KebabQuest.Services.Services
             var gameRoom = await _gameRoomService.GetById(roomId);
             gameRoom.Steps!.Last().Answer = answer;
 
-
             var newQuestion = _gameLogicService.GenerateNewQuestion(gameRoom);
             var lastStep = gameRoom.Steps!.Last();
             var image = _gameLogicService.GenerateImagePerStep(gameRoom, lastStep);
@@ -107,6 +106,12 @@ namespace KebabQuest.Services.Services
             
             await _gameRoomService.Update(roomId, gameRoom);
             return questStep;
+        }
+
+        public async Task<bool> IsAnswerValid(string answer)
+        {
+            var isValid = await _gameLogicService.IsAnswerValid(answer);
+            return isValid;
         }
     }
 }
