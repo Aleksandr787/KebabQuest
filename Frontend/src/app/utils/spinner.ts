@@ -5,6 +5,7 @@ export class Spinner {
   private readonly _value: WritableSignal<number> = signal(0);
 
   public readonly active: Signal<boolean> = computed(() => this._value() !== 0);
+  public readonly passive: Signal<boolean> = computed(() => this._value() === 0);
 
   public enter(): void {
     this._value.update(value => value + 1)

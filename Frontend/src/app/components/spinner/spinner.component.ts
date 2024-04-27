@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {interval, map} from "rxjs";
 
 @Component({
   selector: 'app-spinner',
@@ -12,19 +13,33 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
   ],
   template: `
     <div
-      style="display: flex; flex-direction: column; gap: 24px; height: 100%; width: 100%; align-items: center; justify-content: center; margin-top: 150px;">
+      class="spinner">
       <mat-spinner></mat-spinner>
-      <p class="dots" style="color: var(--primary-text); font-size: 24px; font-weight: 500;">Подождите...</p>
+      <p style="color: var(--primary-text); font-size: 24px; font-weight: 500;">Подождите{{ dots$ | async }}</p>
     </div>
   `,
   styles: `
-    .dots {
-      display: inline-block;
-      animation: dot-animation 1.5s infinite;
-      animation-delay: 0s, 0.5s, 1s;
+    .spinner {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 9999999;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      background: rgba(25, 28, 28, .6);
+      gap: 16px;
     }
   `
 })
 export class SpinnerComponent {
+  private readonly _values = ['.', '..', '...'];
 
+  protected readonly dots$ = interval(500).pipe(
+    map((index) => this._values[index % this._values.length])
+  );
 }

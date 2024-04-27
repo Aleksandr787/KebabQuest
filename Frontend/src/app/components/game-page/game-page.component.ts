@@ -71,7 +71,10 @@ export class GamePageComponent {
     switchMap(([templateId, gameId]) => {
       return gameId ? this._gameService.getGame(gameId) :
         (templateId ? this._gameService.getStory(templateId) :
-          this._gameService.getRandomStory()).pipe(tap((story) => this._appendGameId(story.id)));
+          this._gameService.getRandomStory()).pipe(
+          tap((story) => this._appendGameId(story.id)),
+          map((story) => ({...story, question: `${story.plot} ${story.question}`}))
+        );
     }),
     switchMap((story) => concat(of(null), this._step$).pipe(
       map((step) => this._bindStep(story, step))
@@ -113,7 +116,6 @@ export class GamePageComponent {
   }
 
   protected get isDisabled(): boolean {
-    console.log(this.activeElement, this.inputValue);
     return this.activeElement === null || this.activeElement === 3 && this.inputValue.length === 0;
   }
 

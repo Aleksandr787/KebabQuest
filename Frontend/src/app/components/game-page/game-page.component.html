@@ -28,7 +28,7 @@
       </div>
     </div>
     <button style="width: 100%; margin-top: 16px;" mat-stroked-button
-            (click)="activeElement !== null && nextStep(activeElement < Object.values(options).length ? story.options[activeElement] : inputValue)"
+            (click)="activeElement !== null && nextStep(activeElement < Object.values(options).length ? Object.values(story.options)[activeElement] : inputValue)"
             [disabled]="isDisabled">
       Next
     </button>
