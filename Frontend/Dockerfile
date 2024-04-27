@@ -1,17 +1,12 @@
-# Use the official Node.js image as the base
-FROM node:latest AS build
-WORKDIR /app
+FROM --platform=$BUILDPLATFORM node:22-bullseye-slim as builder
 
-# Copy package.json and install dependencies
-COPY package.json ./
-RUN npm install
+RUN mkdir /project
+WORKDIR /project
 
-# Copy the remaining source code and build the application
+RUN npm install -g @angular/cli@13
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
 COPY . .
-RUN npm run build --prod
-
-# Expose the port for Angular server
-EXPOSE 4200
-
-# Command to start the Angular server
-CMD ["npm", "start"]
+CMD ["ng", "serve", "--host", "0.0.0.0"]

@@ -28,13 +28,13 @@ if (app.Environment.IsDevelopment())
 app.UseCors(corsPolicyBuilder =>
 {
     corsPolicyBuilder
-        .WithOrigins("http://localhost:4200" ?? throw new InvalidOperationException())
+        .AllowAnyOrigin()
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials();
 });
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

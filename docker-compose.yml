@@ -1,18 +1,21 @@
 ﻿services:
   kq-frontend:
     container_name: kq-frontend
-    build: ./Frontend
+    build: Frontend
     ports:
       - "80:4200"
+    volumes:
+      - ./Frontend:/project
+      - /project/node_modules
   kq-backend:
     container_name: kq-backend
-    build:
-      context: ./Backend
-      dockerfile: ./Dockerfile
+    build: Backend
     ports:
-      - "5243:80"
+      - "5292:80"
     depends_on:
       - kq-mongo
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
   kq-mongo:
     container_name: kq-mongo
     image: mongo:latest

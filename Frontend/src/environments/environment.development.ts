@@ -1,5 +1,5 @@
-import {EnvironmentContract} from "./environment.contract";
+import {EnvironmentContact} from "./environment.contact";
 
-export const environment: EnvironmentContract = {
-  apiRoot: 'http://localhost:5292/'
+export const environment: EnvironmentContact = {
+  apiUrl: 'http://localhost:5292'
 };

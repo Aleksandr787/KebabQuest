@@ -1,5 +1,5 @@
-import {EnvironmentContract} from "./environment.contract";
+import {EnvironmentContact} from "./environment.contact";
 
-export const environment: EnvironmentContract = {
-  apiRoot: 'NOT IMPLEMENTED'
+export const environment: EnvironmentContact = {
+  apiUrl: 'http://kq-backend:80'
 };
