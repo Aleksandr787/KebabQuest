@@ -1,6 +1,8 @@
 <app-spinner *ngIf="spinner.active()"></app-spinner>
 
 <div *ngIf="story$ | async as story">
+  <h1 style="padding-bottom: 12px; font-weight: 500">{{ story.title }}</h1>
+
   <div class="test">
     <img class="image" src="data:image/png;base64, {{story.image}}" alt="">
     <div class="button-menu">
@@ -12,17 +14,23 @@
   <div class="description">
     <p>{{ story.question }}</p>
   </div>
-  <div class="answerList" *ngIf="story.options as options">
-    <div *ngFor="let answer of Object.values(options); let index=index" class="answer" id="index"
-         [class.active]="activeElement === index" (click)="toggleActive(index)">{{ answer }}
+
+  <h3 style="margin-block: 16px 8px; font-weight: 500">Выберите вариант ответа:</h3>
+
+  <ng-container *ngIf="story.options as options">
+    <div class="answerList">
+      <div class="answer" [id]="index" *ngFor="let answer of Object.values(options); let index = index"
+           [class.active]="activeElement === index" (click)="toggleActive(index)">{{ answer }}
+      </div>
+      <div class="answer" [id]="Object.values(options).length + 1" [class.active]="activeElement === 3"
+           (click)="toggleActive(Object.values(options).length)">
+        <input type="text" placeholder="Напишите свой вариант ответа..." [(ngModel)]="inputValue">
+      </div>
     </div>
-    <div class="answer" id="4" [class.active]="activeElement === 3" (click)="toggleActive(3)">
-      <input type="text">
-    </div>
-  </div>
-  <button style="width: 100%; margin-top: 16px;" mat-stroked-button
-          (click)="activeElement !== null && nextStep(story.options[activeElement])"
-          [disabled]="isDisabled">
-    Next
-  </button>
+    <button style="width: 100%; margin-top: 16px;" mat-stroked-button
+            (click)="activeElement !== null && nextStep(activeElement < Object.values(options).length ? story.options[activeElement] : inputValue)"
+            [disabled]="isDisabled">
+      Next
+    </button>
+  </ng-container>
 </div>

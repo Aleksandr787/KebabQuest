@@ -102,6 +102,7 @@ export class GamePageComponent {
   }
 
   protected activeElement: number | null = null;
+  protected inputValue: string = '';
 
   protected toStartPage() {
     this._router.navigate([AppRoutes.START]).then();
@@ -112,7 +113,8 @@ export class GamePageComponent {
   }
 
   protected get isDisabled(): boolean {
-    return this.activeElement === null;
+    console.log(this.activeElement, this.inputValue);
+    return this.activeElement === null || this.activeElement === 3 && this.inputValue.length === 0;
   }
 
   protected nextStep(answer: string): void {
