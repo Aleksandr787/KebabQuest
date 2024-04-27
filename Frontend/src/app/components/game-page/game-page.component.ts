@@ -14,9 +14,10 @@ import {GameService} from '../../services/game.service';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {IGameNextStep, IGameStory} from '../../interfaces/gameCard';
 import {AppRoutes, GlobalQueryParams} from "../../app.routes";
-import {combineLatest, concat, first, map, Observable, of, shareReplay, Subject, tap} from "rxjs";
-import {Spinner, switchMapSpinner} from "../../utils/spinner";
+import {combineLatest, concat, first, map, Observable, of, shareReplay, Subject, switchMap, tap} from "rxjs";
+import {Spinner, switchMapSpinner, withSpinner} from "../../utils/spinner";
 import {SpinnerComponent} from "../spinner/spinner.component";
+import {exists} from "../../utils/exists";
 
 @Component({
   selector: 'app-game-page',
@@ -58,37 +59,36 @@ export class GamePageComponent {
 
   private readonly _stepEvent$: Subject<string> = new Subject<string>();
 
-  protected readonly _step$: Observable<IGameNextStep> = this._stepEvent$.pipe(
-    switchMapSpinner((answer) => this._gameService.getNextStepStory(answer), this.spinner)
+  protected readonly _step$: Observable<IGameNextStep> = combineLatest([this._stepEvent$, this._gameId$.pipe(exists())]).pipe(
+    switchMapSpinner(([answer, gameId]) => this._gameService.getNextStepStory(gameId, answer), this.spinner)
   );
 
-  protected readonly story$: Observable<IGameStory> = combineLatest([
+  protected readonly story$: Observable<IGameStory> = withSpinner(combineLatest([
     this._templateId$,
     this._gameId$
   ]).pipe(
     first(),
-    switchMapSpinner(([templateId, gameId]) => {
+    switchMap(([templateId, gameId]) => {
       return gameId ? this._gameService.getGame(gameId) :
-        templateId ? this._gameService.getStory(templateId) :
-          this._gameService.getRandomStory();
-    }, this.spinner),
-    tap((story) => this._appendGameId(story.id)),
-    switchMapSpinner((story) => concat(of(null), this._step$).pipe(
+        (templateId ? this._gameService.getStory(templateId) :
+          this._gameService.getRandomStory()).pipe(tap((story) => this._appendGameId(story.id)));
+    }),
+    switchMap((story) => concat(of(null), this._step$).pipe(
       map((step) => this._bindStep(story, step))
-    ), this.spinner),
+    )),
     shareReplay({
       bufferSize: 1,
       refCount: true
     })
-  );
+  ), this.spinner);
 
-  private _appendGameId(gameId: string) {
-    return this._router.navigate([], {
+  private _appendGameId(gameId: string): void {
+    this._router.navigate([], {
       queryParams: {
         [GlobalQueryParams.GAME_ID]: gameId
       },
-      queryParamsHandling: 'merge'
-    });
+      queryParamsHandling: "merge"
+    }).then();
   }
 
   private _bindStep(game: IGameStory, step: IGameNextStep | null = null): IGameStory {

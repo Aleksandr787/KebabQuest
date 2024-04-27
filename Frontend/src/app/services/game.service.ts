@@ -1,6 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, Observable, switchMap} from "rxjs";
+import {Observable, switchMap} from "rxjs";
 import {IGameNextStep, IGameStory} from "../interfaces/gameCard";
 import {AuthService} from "./auth.service";
 
@@ -19,12 +19,8 @@ export class GameService {
   ) {
   }
 
-  public readonly templateId$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
-  public readonly gameState: BehaviorSubject<GameStateEnum> = new BehaviorSubject<GameStateEnum>(GameStateEnum.START);
-
-  public getNextStepStory(answer: string): Observable<IGameNextStep> {
-    let roomId = localStorage.getItem("roomId");
-    return this._httpClient.post<IGameNextStep>(`api/Game/do-step/${roomId}`, {answer: answer});
+  public getNextStepStory(gameId: string, answer: string): Observable<IGameNextStep> {
+    return this._httpClient.post<IGameNextStep>(`api/Game/do-step/${gameId}`, {answer: answer});
   }
 
   public getStory(templateId: string): Observable<IGameStory> {
@@ -39,7 +35,7 @@ export class GameService {
     )
   }
 
-  public getGame(roomId: string): Observable<IGameStory> {
-    return this._httpClient.get<IGameStory>(`api/Game/${roomId}`);
+  public getGame(gameId: string): Observable<IGameStory> {
+    return this._httpClient.get<IGameStory>(`api/Game/${gameId}`);
   }
 }

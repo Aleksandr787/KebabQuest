@@ -1,4 +1,4 @@
-<app-spinner *ngIf="spinner.active$"></app-spinner>
+<app-spinner *ngIf="spinner.active()"></app-spinner>
 
 <div *ngIf="story$ | async as story">
   <div class="test">
@@ -21,7 +21,7 @@
     </div>
   </div>
   <button style="width: 100%; margin-top: 16px;" mat-stroked-button
-          (click)="activeElement && nextStep(story.options[activeElement])"
+          (click)="activeElement !== null && nextStep(story.options[activeElement])"
           [disabled]="isDisabled">
     Next
   </button>

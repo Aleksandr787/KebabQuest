@@ -1,25 +1,17 @@
-import {BehaviorSubject, map, Observable, of, switchMap} from "rxjs";
+import {Observable, of, switchMap} from "rxjs";
+import {computed, Signal, signal, WritableSignal} from "@angular/core";
 
 export class Spinner {
-  public readonly value$ = new BehaviorSubject<number>(0);
-  public readonly active$ = this.value$.pipe(
-    map((v) => {
-      return v !== 0;
-    })
-  );
-  public readonly passive$ = this.value$.pipe(
-    map((v) => {
-      return v === 0;
-    })
-  );
+  private readonly _value: WritableSignal<number> = signal(0);
 
+  public readonly active: Signal<boolean> = computed(() => this._value() !== 0);
 
-  public enter() {
-    this.value$.next(this.value$.value + 1);
+  public enter(): void {
+    this._value.update(value => value + 1)
   }
 
-  public leave() {
-    this.value$.next(this.value$.value - 1);
+  public leave(): void {
+    this._value.update(value => value - 1);
   }
 }
 
