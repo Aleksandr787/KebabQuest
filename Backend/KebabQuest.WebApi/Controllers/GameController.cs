@@ -26,12 +26,12 @@ namespace KebabQuest.WebApi.Controllers
         }
 
         [HttpGet("{gameRoomId}")]
-        public async Task<ActionResult<GameRoom>> GetGameRoomById(string gameRoomId)
+        public async Task<ActionResult> GetGameRoomById(string gameRoomId)
         {
             try
             {
-                var gameRoom = await _gameService.GetById(gameRoomId);
-                return Ok(gameRoom);
+                var newGameDto = await _gameService.GetById(gameRoomId);
+                return Ok(newGameDto);
             }
             catch (Exception e)
             {
