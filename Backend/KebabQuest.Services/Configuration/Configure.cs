@@ -16,7 +16,7 @@ namespace KebabQuest.Services.Configuration
         public static void ConfigureService(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IGamePromptService, GamePromptService>(); 
+            services.AddScoped<IGamePromptService, GameLogicService>(); 
             services.AddScoped<IGameRoomService, GameRoomService>();
 
             services.AddSingleton<ChatGptProxyService>();

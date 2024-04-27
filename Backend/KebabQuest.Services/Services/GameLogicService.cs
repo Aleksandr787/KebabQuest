@@ -10,14 +10,14 @@ using Newtonsoft.Json.Linq;
 
 namespace KebabQuest.Services.Services;
 
-public class GamePromptService : IGamePromptService
+public class GameLogicService : IGamePromptService
 {
     private readonly ChatGptProxyService _chatGptProxyService;
     private readonly ChatGptThebService _chatGptThebService;
     private readonly IKandinskyService _kandinskyService;
     private readonly StringPromptsDto _stringPrompts;
     
-    public GamePromptService(
+    public GameLogicService(
         ChatGptThebService chatGptThebService,
         ChatGptProxyService chatGptProxyService,
         IKandinskyService kandinskyService,
