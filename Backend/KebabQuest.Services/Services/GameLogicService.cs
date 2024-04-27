@@ -116,7 +116,7 @@ public class GameLogicService : IGameLogicService
             }
         }
 
-        var prompt = NewQuestion.JsonPrompt + _stringPrompts.NewQuestion;
+        var prompt = _stringPrompts.NewQuestion + NewQuestion.JsonPrompt;
         var promptModel = new JObject {
             { "role", "user" },
             { "content", prompt }

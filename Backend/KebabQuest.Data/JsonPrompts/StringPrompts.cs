@@ -12,7 +12,7 @@ namespace KebabQuest.Data.JsonPrompts
         private static readonly JObject JsonObject = new()
         {
             { "newStoryLine", "Твой ответ заполненный этот JSON объект на русском" },
-            { "newQuestion", "Твой ответ заполненный этот JSON объект новым вопросом" },
+            { "newQuestion", "Сгенерируй новый вопрос для игры и верни мне в виде данного джсон объекта" },
             { "initialImage", "Обложка для квест игры" },
             { "imagePerStep", "Рисуй данную ситуацию для игры" }
         };
