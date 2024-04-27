@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace KebabQuest.Services.Services.AIModels;
 
-public class BaseChatGptService
+public abstract class BaseChatGptService
 {
     private readonly ChatGptContext _chatGptContext;
     private readonly HttpClient _httpCLient = new();
@@ -17,16 +17,12 @@ public class BaseChatGptService
         _chatGptContext = chatGptContext;
     }
     
-    public virtual async Task<string> SendRequest(string prompt, string? content = null)
+    public async Task<string> SendRequest(string? prompt = null, JToken? messageHistory = null)
     {
         var request = new HttpRequestMessage(HttpMethod.Post, CreateUrl("chat/completions"));
         SetHeaders(request);
-        if (content is null)
-        {
-            throw new ArgumentException();
-        }
         
-        request.Content = new StringContent(content, Encoding.UTF8, "application/json");
+        request.Content = new StringContent(GetContentData(prompt, messageHistory), Encoding.UTF8, "application/json");
         using var response = await _httpCLient.SendAsync(request);
         response.EnsureSuccessStatusCode();
 
@@ -46,4 +42,6 @@ public class BaseChatGptService
     {
         return $"{_chatGptContext.Url}/{url}";
     }
+
+    protected abstract string GetContentData(string? prompt = null, JToken? messagesHistory = null);
 }

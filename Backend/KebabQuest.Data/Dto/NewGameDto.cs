@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace KebabQuest.Data.Dto
 {
-    public class NewStoryLine
+    public class NewGameDto
     {
         public string Title { get; set; } = "";
         public string Plot { get; set; } = "";
-        public string GameColors { get; set; } = "";
-        public MainPlayer MainPlayer { get; set; } = null!;
         public string Question { get; set; } = null!;
         public Options Options { get; set; } = null!;
     }

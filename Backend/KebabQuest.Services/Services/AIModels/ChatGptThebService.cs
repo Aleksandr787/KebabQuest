@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Security.Principal;
 using System.Text;
 using System.Text.Json;
 using KebabQuest.Data.Settings;
@@ -21,26 +22,22 @@ public class ChatGptThebService : BaseChatGptService
     {
         _settings = settings.Value;
     }
-    
-    public override Task<string> SendRequest(string prompt, string? content = null)
+
+    protected override string GetContentData(string? prompt = null, JToken? messagesHistory = null)
     {
-        var bodyContent = JsonSerializer.Serialize(new
+        var jObject = new JObject
         {
-            model = _settings.Model,
-            messages = new[]
+            { "model", _settings.Model },
+            { "messages", messagesHistory },
+            { "stream", false },
             {
-                new
+                "model_params", new JObject
                 {
-                    role = "user",
-                    content = prompt
+                    { "temperature", 1.0 }
                 }
-            },
-            stream = false,
-            model_params = new
-            {
-                temperature = 1.0
             }
-        });
-        return base.SendRequest(prompt, bodyContent);
+        };
+        var bodyContent = jObject.ToString();
+        return bodyContent;
     }
 }

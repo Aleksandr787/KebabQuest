@@ -16,10 +16,12 @@ namespace KebabQuest.Services.Configuration
         public static void ConfigureService(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IGamePromptService, GamePromptService>(); 
             services.AddScoped<IGameRoomService, GameRoomService>();
 
             services.AddSingleton<ChatGptProxyService>();
             services.AddSingleton<ChatGptThebService>();
+            services.AddSingleton<IKandinskyService, KandinskyService>();
         }
     }
 }

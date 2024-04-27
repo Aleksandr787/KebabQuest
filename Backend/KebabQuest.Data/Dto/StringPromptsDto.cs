@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace KebabQuest.Data.Dto
 {
-    public class PromptsDto
+    public class StringPromptsDto
     {
         public string NewStoryLine { get; set; } = "";
+        public string NewQuestion { get; set; } = "";
     }
 }

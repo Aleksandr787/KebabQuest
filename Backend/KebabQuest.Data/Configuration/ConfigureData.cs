@@ -2,10 +2,8 @@
 using KebabQuest.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using KebabQuest;
-using System.Xml.Linq;
 using KebabQuest.Data.DataContext;
-using KebabQuest.Data.Assets;
+using KebabQuest.Data.JsonPrompts;
 
 namespace KebabQuest.Data.Configuration
 {
@@ -13,9 +11,9 @@ namespace KebabQuest.Data.Configuration
     {
         public static void ConfigurePrompts(this IServiceCollection services)
         {
-            var promptsDto = JsonConvert.DeserializeObject<PromptsDto>(Prompts.json)!;
-
-            services.AddSingleton(promptsDto!);
+            var stringPrompts = JsonConvert.DeserializeObject<StringPromptsDto>(StringPrompts.Json)!;
+            services.AddSingleton(stringPrompts!);
+            
         }
 
         public static void ConfigureRepositories(this IServiceCollection services)
