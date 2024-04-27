@@ -13,3 +13,12 @@ export interface GameStory {
     [key: string]: string
   }
 }
+
+export interface GameNextStep {
+  question: string;
+  image: string;
+  answer: string;
+  options: {
+    [key: string]: string
+  }
+}

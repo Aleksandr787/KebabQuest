@@ -12,7 +12,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { GameService } from '../../services/game.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { GameStory } from '../../interfaces/gameCard';
+import { GameNextStep, GameStory } from '../../interfaces/gameCard';
 
 @Component({
   selector: 'app-game-page',
@@ -42,13 +42,15 @@ export class GamePageComponent implements OnInit {
   }
 
   public isActive: boolean = false;
+  private _isStart: boolean = true;
   private _isLoading: boolean = false;
+  public story: GameStory | undefined;
+  public activeElement: number | null = null;
 
   protected readonly govno: string[] = [
     'Lorem Lorem Lorem', 'Lorem Lorem Lorem', 'Lorem Lorem Lorem',
   ]
 
-  public story: GameStory | undefined;
 
   public ngOnInit(): void {
     this._gameService.eventStartGame.subscribe(() => {
@@ -59,15 +61,18 @@ export class GamePageComponent implements OnInit {
   get isLoading(): boolean {
     return this._isLoading;
   }
-
+  
   public generateGameStory() {
     console.log('generateGameStory');
     this._isLoading = true;
-
-    this._gameService.getStory().subscribe((story: GameStory) => {
-      this.story = story;
-      this._isLoading = false;
-    });
+    if (this._isStart) {
+      this._gameService.getStory().subscribe((story: GameStory) => {
+        this.story = story;
+        localStorage.setItem("roomId", story.id);
+        this._isLoading = false;
+        this._isStart = false;
+      });
+    }
   }
 
 
@@ -75,12 +80,32 @@ export class GamePageComponent implements OnInit {
     this._router.navigate(["start"]);
   }
 
-
-  activeElement: number | null = null;
-
   public toggleActive(elementId: number): void {
     this.activeElement = elementId;
+    console.log(elementId);
   }
 
+  public isDisabled(): boolean {
+    return this.activeElement === null ? true : false;
+  }
+
+  public nextStep(): void {
+    let roomId = localStorage.getItem("roomId");
+    if(!roomId) {
+      console.log('roomId NULL!!!');
+      return;
+    }
+
+    this._isLoading = true;
+    this._gameService.getNextStepStory("Пойду налево").subscribe((story: GameNextStep) => {
+      if(this.story){
+        this.story.image = story.image;
+        this.story.question = story.question;
+        this.story.options = story.options;
+      }
+
+      this._isLoading = false;
+    });
+  }
   protected readonly Object = Object;
 }

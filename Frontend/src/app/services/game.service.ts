@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, switchMap} from "rxjs";
-import {GameStory} from "../interfaces/gameCard";
+import {GameNextStep, GameStory} from "../interfaces/gameCard";
 import {AuthService} from "./auth.service";
 
 @Injectable({
@@ -20,13 +20,17 @@ export class GameService {
     return this._authService.token$.pipe(
       switchMap((token) => this._httpClient.post<GameStory>(`api/Game/new-game/${token}`, {}))
     )
-    
   }
 
-//   public getGame(): Observable<GameStory> {
-//     // достать id из localstorage 
-//     return this._httpClient.get<GameStory>(`api/Game/${token}`);
-//   }
+  public getNextStepStory(answer: string): Observable<GameNextStep> {
+    let roomId = localStorage.getItem("roomId");
+    return this._httpClient.post<GameNextStep>(`api/Game/new-game/${roomId}`, {answer: answer});
+  }
+
+  public getGame(): Observable<GameStory> {
+    let roomId = localStorage.getItem("roomId");
+    return this._httpClient.get<GameStory>(`api/Game/${roomId}`);
+  }
 
   public generateGameStory(): void {
     this.eventStartGame.next();

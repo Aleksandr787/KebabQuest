@@ -49,7 +49,7 @@
     </div>
     <div class="answerList" *ngIf="story?.options as options">
         <div *ngFor="let answer of Object.values(options); let index=index" class="answer" id="index" [class.active]="activeElement === index" (click)="toggleActive(index)">{{ answer }}</div>
-        <div class="answer" id="4" [class.active]="activeElement === 4" (click)="toggleActive(4)">
+        <div class="answer" id="4" [class.active]="activeElement === 3" (click)="toggleActive(3)">
             <input type="text">
         </div>
     </div>
@@ -71,5 +71,5 @@
         </mat-radio-button>
         }
     </mat-radio-group> -->
-    <button style="width: 100%; margin-top: 16px;" mat-stroked-button>Next</button>
+    <button style="width: 100%; margin-top: 16px;" mat-stroked-button (click)="nextStep()" [disabled]="isDisabled()" >Next</button>
 </div>
