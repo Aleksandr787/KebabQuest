@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Observable, of, switchMap, tap} from "rxjs";
+import {map, Observable, of, switchMap} from "rxjs";
 import {fromLocalStorage} from "../utils/local-storage";
 import {HttpClient} from "@angular/common/http";
 
@@ -15,11 +15,14 @@ export class AuthService {
   public readonly token$: Observable<string> = this.tokenNullable$.pipe(
     switchMap((token) => token ?
       of(token) :
-      this.reg().pipe(tap((token) => this.setToken(token))))
+      this.reg().pipe(map((token) => {
+        this.setToken(token.id);
+        return token.id
+      })))
   );
 
-  public reg(): Observable<string> {
-    return this._httpClient.post<string>('api/User/RegisterUser', {});
+  public reg(): Observable<{ id: string }> {
+    return this._httpClient.post<{ id: string }>('api/User/RegisterUser', {});
   }
 
   public setToken(token: string): void {

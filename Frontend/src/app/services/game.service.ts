@@ -16,7 +16,7 @@ export class GameService {
 
   public getStory(): Observable<GameStory> {
     return this._authService.token$.pipe(
-      switchMap((token) => this._httpClient.get<GameStory>(`api/Game/new-game/${token}`))
+      switchMap((token) => this._httpClient.post<GameStory>(`api/Game/new-game/${token}`, {}))
     )
   }
 }

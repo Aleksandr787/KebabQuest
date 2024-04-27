@@ -41,7 +41,6 @@ export class GamePageComponent implements OnInit {
   ) {
   }
 
-  public answers: string[] = ['Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'Voluptates corporis enim sed, eum debitis eius id earum modi deserunt at eveniet quas inventore tempore perspiciatis aperiam blanditiis', 'Summer'];
   private _isLoading: boolean = false;
 
   public story: GameStory | undefined;
@@ -71,4 +70,5 @@ export class GamePageComponent implements OnInit {
     this._router.navigate(["start"]);
   }
 
+  protected readonly Object = Object;
 }
