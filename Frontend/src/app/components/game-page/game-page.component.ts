@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Router, RouterOutlet} from '@angular/router';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
-import {MatRadioModule} from '@angular/material/radio';
-import {FormsModule} from '@angular/forms';
-import {GameService} from '../../services/game.service';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {GameStory} from '../../interfaces/gameCard';
+import { Component, NgModule, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router, RouterOutlet } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
+import { GameService } from '../../services/game.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { GameStory } from '../../interfaces/gameCard';
 
 @Component({
   selector: 'app-game-page',
@@ -29,7 +29,7 @@ import {GameStory} from '../../interfaces/gameCard';
     MatSelectModule,
     MatRadioModule,
     FormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   templateUrl: './game-page.component.html',
   styleUrl: './game-page.component.scss'
@@ -41,7 +41,12 @@ export class GamePageComponent implements OnInit {
   ) {
   }
 
+  public isActive: boolean = false;
   private _isLoading: boolean = false;
+
+  protected readonly govno: string[] = [
+    'Lorem Lorem Lorem', 'Lorem Lorem Lorem', 'Lorem Lorem Lorem',
+  ]
 
   public story: GameStory | undefined;
 
@@ -68,6 +73,13 @@ export class GamePageComponent implements OnInit {
 
   public toStartPage() {
     this._router.navigate(["start"]);
+  }
+
+
+  activeElement: number | null = null;
+
+  public toggleActive(elementId: number): void {
+    this.activeElement = elementId;
   }
 
   protected readonly Object = Object;

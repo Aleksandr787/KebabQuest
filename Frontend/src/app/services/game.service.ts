@@ -20,7 +20,13 @@ export class GameService {
     return this._authService.token$.pipe(
       switchMap((token) => this._httpClient.post<GameStory>(`api/Game/new-game/${token}`, {}))
     )
+    
   }
+
+//   public getGame(): Observable<GameStory> {
+//     // достать id из localstorage 
+//     return this._httpClient.get<GameStory>(`api/Game/${token}`);
+//   }
 
   public generateGameStory(): void {
     this.eventStartGame.next();
