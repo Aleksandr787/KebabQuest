@@ -42,7 +42,7 @@ namespace KebabQuest.Services.Services
             return result;
         }
 
-        public async Task DeleteRoom(string userId, string gameRoomId)
+        public async Task RemoveRoom(string userId, string gameRoomId)
         {
             await _gameRoomService.DeleteGameRoom(gameRoomId);
             await _userService.DeleteGameRoom(userId, gameRoomId);
@@ -64,10 +64,10 @@ namespace KebabQuest.Services.Services
             return result;
         }
 
-        public async Task<QuestStep> DoStep(QuestStep step, string roomId)
+        public async Task<QuestStep> DoStep(string roomId, QuestStep step)
         {
             var gameRoom = await _gameRoomService.GetById(roomId);
-            gameRoom.Steps.Append(step);
+            gameRoom.Steps.Add(step);
             await _gameRoomService.Update(roomId, gameRoom);
 
             var newQuestion = _gameLogicService.GenerateNewQuestion(gameRoom);

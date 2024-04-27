@@ -11,12 +11,12 @@ public class ChatGptController : ControllerBase
 {
     private readonly ChatGptProxyService _chatGptProxyService;
     private readonly ChatGptThebService _chatGptThebService;
-    private readonly IGamePromptService _gamePromptService;
+    private readonly IGameLogicService _gamePromptService;
     
     public ChatGptController(
         ChatGptProxyService chatGptProxyService,
         ChatGptThebService chatGptThebService,
-        IGamePromptService gamePromtService)
+        IGameLogicService gamePromtService)
     {
         _chatGptProxyService = chatGptProxyService;
         _chatGptThebService = chatGptThebService;
