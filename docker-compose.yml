@@ -1,0 +1,25 @@
+﻿services:
+  kq-frontend:
+    container_name: kq-frontend
+    build: ./Frontend
+    ports:
+      - "80:4200"
+  kq-backend:
+    container_name: kq-backend
+    build:
+      context: ./Backend
+      dockerfile: ./Dockerfile
+    ports:
+      - "5243:80"
+    depends_on:
+      - kq-mongo
+  kq-mongo:
+    container_name: kq-mongo
+    image: mongo:latest
+    volumes:
+      - kq-data:/data/db
+    ports:
+      - "27017:27017"
+      
+volumes:
+  kq-data:

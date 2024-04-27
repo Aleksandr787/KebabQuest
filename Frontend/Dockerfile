@@ -1,11 +1,17 @@
-FROM node:20.11 as build
+# Use the official Node.js image as the base
+FROM node:latest AS build
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
+
+# Copy package.json and install dependencies
+COPY package.json ./
+RUN npm install
+
+# Copy the remaining source code and build the application
 COPY . .
 RUN npm run build --prod
 
-FROM nginx:1.23.3
-COPY --from=build /app/dist/frontend /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Expose the port for Angular server
+EXPOSE 4200
+
+# Command to start the Angular server
+CMD ["npm", "start"]
