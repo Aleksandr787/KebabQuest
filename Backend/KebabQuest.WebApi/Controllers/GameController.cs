@@ -40,7 +40,7 @@ namespace KebabQuest.WebApi.Controllers
         }
 
         [HttpGet("get-all-games/{userId}")]
-        public async Task<IActionResult> GetAllGameRoomByUserId(string userId)
+        public async Task<ActionResult> GetAllGameRoomByUserId(string userId)
         {
             try
             {

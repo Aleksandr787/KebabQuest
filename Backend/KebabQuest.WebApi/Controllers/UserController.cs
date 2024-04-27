@@ -1,6 +1,7 @@
 ﻿using KebabQuest.Services.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using KebabQuest.Data.Dto;
 
 namespace KebabQuest.WebApi.Controllers
 {
@@ -16,12 +17,12 @@ namespace KebabQuest.WebApi.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<string>> RegisterUser()
+        public async Task<ActionResult<UserTokenDto>> RegisterUser()
         {
             try
             {
                 var token = await _userService.RegisterUserAsync();
-                return Ok(token);
+                return Ok(new UserTokenDto { Id = token });
             }
             catch (Exception ex)
             {
