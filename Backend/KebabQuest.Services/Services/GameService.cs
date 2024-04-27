@@ -29,7 +29,16 @@ namespace KebabQuest.Services.Services
             _userService = userService;
             _gameSampleService = gameSampleService;
         }
-        
+
+        public async Task<NewGameDto> GetById(string gameRoomId)
+        {
+            var gameRoom = await _gameRoomService.GetById(gameRoomId) ??
+                           throw new InvalidOperationException();
+
+            var lastStep = gameRoom.Steps!.Last();
+            return DataMapper.MapToNewGameDto(gameRoom, lastStep);
+        }
+
         public async Task<NewGameDto> StartGameFromGameSample(string sampleId, string userId)
         {
             var gameSample = await _gameSampleService.GetById(sampleId);

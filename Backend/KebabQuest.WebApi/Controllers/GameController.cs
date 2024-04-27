@@ -30,7 +30,7 @@ namespace KebabQuest.WebApi.Controllers
         {
             try
             {
-                var gameRoom = await _gameRoomService.GetById(gameRoomId);
+                var gameRoom = await _gameService.GetById(gameRoomId);
                 return Ok(gameRoom);
             }
             catch (Exception e)
