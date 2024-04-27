@@ -92,7 +92,7 @@ public class GameLogicService : IGameLogicService
         {
             new JObject
             {
-                { "role", "system" },
+                { "role", "assistant" },
                 { "content", $"{gameRoom.Title}\n{gameRoom.Plot}\n{GetMainPlayerInfoForNewQuestion(gameRoom.MainPlayer!)}" }
             }
         };
@@ -102,7 +102,7 @@ public class GameLogicService : IGameLogicService
             foreach (var step in gameRoom.Steps)
             {
                 var questionStep = new JObject {
-                    { "role", "system" },
+                    { "role", "assistant" },
                     { "content", step.Question }
                 };
                 

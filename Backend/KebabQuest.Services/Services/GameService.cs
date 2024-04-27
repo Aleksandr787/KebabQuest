@@ -74,6 +74,7 @@ namespace KebabQuest.Services.Services
             var newQuestion = _gameLogicService.GenerateNewQuestion(gameRoom);
             var image = _gameLogicService.GenerateImagePerStep(gameRoom, step);
 
+            await Task.WhenAll(newQuestion, image);
             var result = DataMapper.MapToQuestStep(newQuestion.Result, image.Result);
             return result;
         }
