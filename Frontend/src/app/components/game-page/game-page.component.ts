@@ -18,10 +18,10 @@ import { GameStory } from '../../interfaces/gameCard';
   selector: 'app-game-page',
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     RouterOutlet,
-    MatButtonModule, 
-    MatDividerModule, 
+    MatButtonModule,
+    MatDividerModule,
     MatIconModule,
     MatCardModule,
     MatInputModule,
@@ -36,10 +36,10 @@ import { GameStory } from '../../interfaces/gameCard';
 })
 export class GamePageComponent implements OnInit {
   public answers: string[] = ['Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 'Voluptates corporis enim sed, eum debitis eius id earum modi deserunt at eveniet quas inventore tempore perspiciatis aperiam blanditiis', 'Summer'];
-  
+
   private _isLoading: boolean = false;
   public story: GameStory | undefined;
-  
+
   constructor(
     private _gameService: GameService,
     private _router: Router
@@ -58,16 +58,18 @@ export class GamePageComponent implements OnInit {
   }
 
   public generateGameStory() {
+    console.log(322);
     this._isLoading = true;
+
     this._gameService.getStory().subscribe((story: GameStory) => {
       this.story = story;
       this._isLoading = false;
     });
   }
 
-  
+
   public toStartPage(){
     this._router.navigate(["start"]);
   }
-  
+
 }

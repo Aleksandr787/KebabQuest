@@ -1,21 +1,24 @@
 import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import {Observable, switchMap} from "rxjs";
 import { GameStory } from "../interfaces/gameCard";
+import {AuthService} from "./auth.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class GameService {
-    
+
     public eventStartGame: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(
-        private _httpClient: HttpClient,
+        private readonly _httpClient: HttpClient,
+        private readonly _authService: AuthService
     ) { }
 
     public getStory(): Observable<GameStory> {
-        console.log("Get gameStory");
-        return this._httpClient.get<GameStory>('');
+        return this._authService.token$.pipe(
+          switchMap((token) =>  this._httpClient.get<GameStory>(`api/Game/new-game/${token}`))
+        )
     }
 }

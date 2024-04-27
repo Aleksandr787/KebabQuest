@@ -7,7 +7,13 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { proxyInterceptor } from './interceptors/proxy.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimationsAsync(), provideHttpClient(withInterceptors([
-    proxyInterceptor
-  ])), provideAnimationsAsync(), provideAnimationsAsync()]
+  providers: [
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideHttpClient(withInterceptors([
+      proxyInterceptor,
+  ])),
+    provideAnimationsAsync(),
+    provideAnimationsAsync()
+  ]
 };
