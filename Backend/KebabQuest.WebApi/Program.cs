@@ -28,7 +28,6 @@ if (app.Environment.IsDevelopment())
 app.UseCors(corsPolicyBuilder =>
 {
     corsPolicyBuilder
-        .AllowAnyOrigin()
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials();
