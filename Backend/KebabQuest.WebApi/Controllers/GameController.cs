@@ -64,7 +64,7 @@ namespace KebabQuest.WebApi.Controllers
             }
         }
 
-        [HttpPost("{roomId}")]
+        [HttpPost("do-step/{roomId}")]
         public async Task<IActionResult> DoStep(string roomId, [FromBody] QuestStep questStep)
         {
             try
