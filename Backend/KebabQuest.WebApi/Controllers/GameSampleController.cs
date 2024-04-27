@@ -7,11 +7,11 @@ namespace KebabQuest.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SeederController : ControllerBase
+    public class GameSampleController : ControllerBase
     {
         private readonly IGameSampleService _newStoryLineDtoService;
 
-        public SeederController(IGameSampleService newStoryLineDtoService)
+        public GameSampleController(IGameSampleService newStoryLineDtoService)
         {
             _newStoryLineDtoService = newStoryLineDtoService;
         }
