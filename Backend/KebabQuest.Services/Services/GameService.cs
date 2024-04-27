@@ -51,7 +51,7 @@ namespace KebabQuest.Services.Services
             var gameRoomsIds = await _userService.GetAllGameRooms(userId);
             var result = new List<GameRoom>();
 
-            if(gameRoomsIds == null)
+            if (gameRoomsIds == null)
                 return result;
 
             foreach (var item in gameRoomsIds)
@@ -68,7 +68,7 @@ namespace KebabQuest.Services.Services
 
             gameRoom.Steps ??= new List<QuestStep>();
             gameRoom.Steps.Add(step);
-            
+
             await _gameRoomService.Update(roomId, gameRoom);
 
             var newQuestion = _gameLogicService.GenerateNewQuestion(gameRoom);

@@ -16,13 +16,13 @@ public abstract class BaseChatGptService
     {
         _chatGptContext = chatGptContext;
     }
-    
+
     public async Task<string> SendRequest(string? prompt = null, JToken? messageHistory = null)
     {
         // prompt parameter is for testing, should be removed
         var request = new HttpRequestMessage(HttpMethod.Post, CreateUrl("chat/completions"));
         SetHeaders(request);
-        
+
         request.Content = new StringContent(GetContentData(prompt, messageHistory), Encoding.UTF8, "application/json");
         using var response = await _httpCLient.SendAsync(request);
         response.EnsureSuccessStatusCode();
@@ -32,13 +32,13 @@ public abstract class BaseChatGptService
 
         return contentString?.Value<string>() ?? throw new Exception("something went wrong");
     }
-    
+
     private void SetHeaders(HttpRequestMessage request)
     {
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _chatGptContext.ApiKey);
         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
-    
+
     private string CreateUrl(string url)
     {
         return $"{_chatGptContext.Url}/{url}";

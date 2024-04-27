@@ -8,7 +8,7 @@ namespace KebabQuest.WebApi.Controllers;
 public class KandinskyController : ControllerBase
 {
     private readonly IKandinskyService _kandinskyService;
-    
+
     public KandinskyController(IKandinskyService kandinskyService)
     {
         _kandinskyService = kandinskyService;

@@ -13,7 +13,8 @@ namespace KebabQuest.Data.JsonPrompts
         {
             { "question", "" },
             {
-                "options", new JObject
+                "options",
+                new JObject
                 {
                     { "option1", "" },
                     { "option2", "" },

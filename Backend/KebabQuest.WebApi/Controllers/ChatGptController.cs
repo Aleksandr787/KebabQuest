@@ -12,7 +12,7 @@ public class ChatGptController : ControllerBase
     private readonly ChatGptProxyService _chatGptProxyService;
     private readonly ChatGptThebService _chatGptThebService;
     private readonly IGameLogicService _gamePromptService;
-    
+
     public ChatGptController(
         ChatGptProxyService chatGptProxyService,
         ChatGptThebService chatGptThebService,
@@ -22,7 +22,7 @@ public class ChatGptController : ControllerBase
         _chatGptThebService = chatGptThebService;
         _gamePromptService = gamePromtService;
     }
-    
+
     //for testing
     [HttpPost("chat-proxy")]
     public async Task<IActionResult> ChatProxy([FromQuery] string prompt)
@@ -44,7 +44,7 @@ public class ChatGptController : ControllerBase
         var newStoryLine = await _gamePromptService.GenerateNewStory();
         return Ok(newStoryLine);
     }
-    
+
     [HttpPost("new-story-line-theb")]
     public async Task<IActionResult> GenerateNewStoryLineTheb()
     {

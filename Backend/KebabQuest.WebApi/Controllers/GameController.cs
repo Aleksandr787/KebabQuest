@@ -14,7 +14,7 @@ namespace KebabQuest.WebApi.Controllers
     {
         private readonly IGameService _gameService;
         private readonly IGameRoomService _gameRoomService;
-        
+
         public GameController(
             IGameService gameService,
             IGameRoomService gameRoomService)
@@ -36,7 +36,7 @@ namespace KebabQuest.WebApi.Controllers
             {
                 return BadRequest(e.Message);
             }
-            
+
         }
 
         [HttpGet("get-all-games/{userId}")]
@@ -94,6 +94,6 @@ namespace KebabQuest.WebApi.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+
     }
 }

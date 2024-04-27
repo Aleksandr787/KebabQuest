@@ -25,10 +25,10 @@ public class KandinskyService : IKandinskyService
     {
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_kandinskySettings.Url}/models");
         SetHeaders(requestMessage);
-        
+
         var response = await _httpClient.SendAsync(requestMessage);
         response.EnsureSuccessStatusCode();
-        
+
         var responseContent = await response.Content.ReadAsStringAsync();
         var json = JArray.Parse(responseContent);
         return json[0].Value<int>("id");
@@ -42,9 +42,9 @@ public class KandinskyService : IKandinskyService
         {
             var request = new HttpRequestMessage(HttpMethod.Get, GetUrl($"text2image/status/{requestId}"));
             SetHeaders(request);
-            
+
             using var response = await _httpClient.SendAsync(request);
-            
+
             var responseModel = JsonConvert.DeserializeObject<KandinskyStatusResponse>
                 (await response.Content.ReadAsStringAsync());
             if (responseModel?.Status == "DONE")
@@ -52,7 +52,7 @@ public class KandinskyService : IKandinskyService
                 var imageString = responseModel.Images!.FirstOrDefault();
                 return imageString ?? throw new InvalidOperationException();
             }
-            
+
             if (responseModel?.Status == "FAIL")
             {
                 break;
@@ -68,7 +68,7 @@ public class KandinskyService : IKandinskyService
     {
         var request = new HttpRequestMessage(HttpMethod.Post, GetUrl("text2image/run"));
         SetHeaders(request);
-        
+
         var jsonParams = JsonSerializer.Serialize(new
         {
             type = "GENERATE",
@@ -86,7 +86,7 @@ public class KandinskyService : IKandinskyService
         formContent.Add(new StringContent(jsonParams, Encoding.UTF8, "application/json"), "params");
         formContent.Add(new StringContent(modelId.ToString()), "model_id");
         request.Content = formContent;
-        
+
         using var response = await _httpClient.SendAsync(request);
         response.EnsureSuccessStatusCode();
 
@@ -96,7 +96,7 @@ public class KandinskyService : IKandinskyService
         {
             throw new InvalidOperationException();
         }
-        
+
         return await GetImageWhenReady(responseModel.Uuid);
     }
 

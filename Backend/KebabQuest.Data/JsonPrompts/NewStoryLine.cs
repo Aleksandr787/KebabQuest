@@ -11,11 +11,12 @@ namespace KebabQuest.Data.JsonPrompts
     {
         private static readonly JObject JsonObject = new()
         {
-          { "title", "" },
-          { "plot", "" },
-          { "gameColors", "" },
-          {
-            "mainPlayer", new JObject
+            { "title", "" },
+            { "plot", "" },
+            { "gameColors", "" },
+            {
+                "mainPlayer",
+                new JObject
             {
               { "gender", "" },
               { "race", "" },
@@ -34,16 +35,17 @@ namespace KebabQuest.Data.JsonPrompts
                 }
               }
             }
-          },
-          { "question", "" },
-          {
-            "options", new JObject
+            },
+            { "question", "" },
+            {
+                "options",
+                new JObject
             {
               { "option1", "" },
               { "option2", "" },
               { "option3", "" }
             }
-          }
+            }
         };
 
         public static string JsonPrompt => JsonObject.ToString();

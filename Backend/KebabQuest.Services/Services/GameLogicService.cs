@@ -16,7 +16,7 @@ public class GameLogicService : IGameLogicService
     private readonly ChatGptThebService _chatGptThebService;
     private readonly IKandinskyService _kandinskyService;
     private readonly StringPromptsDto _stringPrompts;
-    
+
     public GameLogicService(
         ChatGptThebService chatGptThebService,
         ChatGptProxyService chatGptProxyService,
@@ -28,7 +28,7 @@ public class GameLogicService : IGameLogicService
         _kandinskyService = kandinskyService;
         _stringPrompts = stringPrompts;
     }
-    
+
     public async Task<NewStoryLineJsonDto> GenerateNewStory()
     {
         var prompt = NewStoryLine.JsonPrompt + _stringPrompts.NewStoryLine;
@@ -40,7 +40,7 @@ public class GameLogicService : IGameLogicService
                 { "content", prompt }
             }
         };
-        
+
         var newStoryLineJson = await _chatGptProxyService.SendRequest(null, messages);
         var newGameDto = JsonConvert.DeserializeObject<NewStoryLineJsonDto>(newStoryLineJson);
         if (newGameDto is null)
@@ -50,7 +50,7 @@ public class GameLogicService : IGameLogicService
 
         return newGameDto;
     }
-    
+
     public async Task<NewStoryLineJsonDto> GenerateNewStoryTheb()
     {
         // just for testing
@@ -63,7 +63,7 @@ public class GameLogicService : IGameLogicService
                 { "content", prompt }
             }
         };
-        
+
         var newStoryLineJson = await _chatGptThebService.SendRequest(null, messages);
         var newGameDto = JsonConvert.DeserializeObject<NewStoryLineJsonDto>(newStoryLineJson);
         if (newGameDto is null)
@@ -105,7 +105,7 @@ public class GameLogicService : IGameLogicService
                     { "role", "assistant" },
                     { "content", step.Question }
                 };
-                
+
                 var answerStep = new JObject {
                     { "role", "user" },
                     { "content", step.Answer }
