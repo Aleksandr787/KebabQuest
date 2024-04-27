@@ -1,4 +1,5 @@
-﻿using KebabQuest.Data.Dto;
+﻿using System.Text.RegularExpressions;
+using KebabQuest.Data.Dto;
 using KebabQuest.Data.JsonPrompts;
 using KebabQuest.Data.Models;
 using KebabQuest.Data.Settings;
@@ -42,7 +43,8 @@ public class GameLogicService : IGameLogicService
         };
 
         var newStoryLineJson = await _chatGptProxyService.SendRequest(null, messages);
-        var newGameDto = JsonConvert.DeserializeObject<NewStoryLineJsonDto>(newStoryLineJson);
+        var extractedJsonObject = ExtractJsonObject(newStoryLineJson);
+        var newGameDto = JsonConvert.DeserializeObject<NewStoryLineJsonDto>(extractedJsonObject);
         if (newGameDto is null)
         {
             throw new InvalidOperationException("New storyline model was not created correctly");
@@ -104,7 +106,8 @@ public class GameLogicService : IGameLogicService
         };
 
         var newQuestionJsonString = await _chatGptProxyService.SendRequest(null, messages);
-        var newQuestionDtoModel = JsonConvert.DeserializeObject<NewQuestionJsonDto>(newQuestionJsonString);
+        var extractedJsonObject = ExtractJsonObject(newQuestionJsonString);
+        var newQuestionDtoModel = JsonConvert.DeserializeObject<NewQuestionJsonDto>(extractedJsonObject);
         if (newQuestionDtoModel is null) throw new InvalidOperationException("New question model was not created correctly");
         return newQuestionDtoModel;
     }
@@ -147,7 +150,8 @@ public class GameLogicService : IGameLogicService
         messages.Add(promptModel);
         
         var newQuestionJson = await _chatGptProxyService.SendRequest(null, messages);
-        var newQuestionDto = JsonConvert.DeserializeObject<NewQuestionJsonDto>(newQuestionJson);
+        var extractedJsonObject = ExtractJsonObject(newQuestionJson);
+        var newQuestionDto = JsonConvert.DeserializeObject<NewQuestionJsonDto>(extractedJsonObject);
         if (newQuestionDto is null) throw new InvalidOperationException("New question model was not created correctly");
         return newQuestionDto;
     }
@@ -193,5 +197,17 @@ public class GameLogicService : IGameLogicService
         };
 
         return info.ToString();
+    }
+
+    private string ExtractJsonObject(string answerContent)
+    {
+        var regex = new Regex(@"\{.*\}");
+        var match = regex.Match(answerContent.Replace("\n", ""));
+        if (match.Success)
+        {
+            return match.Value;
+        }
+        
+        throw new InvalidOperationException("Ai model didn't return json object");
     }
 }
