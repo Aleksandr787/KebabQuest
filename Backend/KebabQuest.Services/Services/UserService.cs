@@ -46,5 +46,16 @@ namespace KebabQuest.Services.Services
 
             return player.GameRoomIds;
         }
+
+        public async Task DeleteGameRoom(string userToken, string gameRoomId)
+        {
+            var player = await _userRepository.GetById(userToken);
+
+            if (player == null)
+                throw new Exception();
+
+            player.GameRoomIds.Remove(gameRoomId);
+            await _userRepository.UpdateEntity(player.Id, player);
+        }
     }
 }
