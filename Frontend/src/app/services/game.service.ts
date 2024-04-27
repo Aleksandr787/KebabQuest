@@ -1,11 +1,14 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { GameStory } from "../interfaces/gameCard";
 
 @Injectable({
     providedIn: 'root'
 })
 export class GameService {
+    
+    public eventStartGame: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(
         private _httpClient: HttpClient,
@@ -15,10 +18,4 @@ export class GameService {
         console.log("Get gameStory");
         return this._httpClient.get<GameStory>('');
     }
-
-}
-
-export interface GameStory {
-    text: string;
-    image: string;
 }

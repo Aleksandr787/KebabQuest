@@ -37,6 +37,6 @@ export class StartPageComponent {
   ) {}
 
   public startGame(){
-    this._router.navigate(["game"]);
+    this._router.navigate(["select"]);
   }
 }
