@@ -54,12 +54,12 @@ namespace KebabQuest.WebApi.Controllers
             }
         }
 
-        [HttpGet("game-from-sample/{sampleId}")]
-        public async Task<IActionResult> StartGameFromSample(string sampleId)
+        [HttpGet("game-from-sample/{sampleId}/{userId}")]
+        public async Task<IActionResult> StartGameFromSample(string sampleId, string userId)
         {
             try
             {
-                var newGame = await _gameService.StartGameFromGameSample(sampleId);
+                var newGame = await _gameService.StartGameFromGameSample(sampleId, userId);
                 return Ok(newGame);
             }
             catch (Exception e)

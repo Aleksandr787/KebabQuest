@@ -30,7 +30,7 @@ namespace KebabQuest.Services.Services
             _gameSampleService = gameSampleService;
         }
         
-        public async Task<NewGameDto> StartGameFromGameSample(string sampleId)
+        public async Task<NewGameDto> StartGameFromGameSample(string sampleId, string userId)
         {
             var gameSample = await _gameSampleService.GetById(sampleId);
             var newStoryLineJsonDto = DataMapper.MapToNewStoryLineJsonDto(gameSample);
@@ -38,6 +38,8 @@ namespace KebabQuest.Services.Services
             var newGameRoomDto = DataMapper.MapToGameRoom(newStoryLineJsonDto, gameSample.Image!, newQuestion);
             var gameId = await _gameRoomService.CreateGameRoom(newGameRoomDto);
             newGameRoomDto.Id = gameId;
+
+            await _userService.AddGameRoomId(userId, gameId);
             return DataMapper.MapToNewGameDto(newGameRoomDto, newGameRoomDto.Steps!.First());
         }
 

@@ -10,7 +10,7 @@ namespace KebabQuest.Services.Interfaces
 {
     public interface IGameService
     {
-        Task<NewGameDto> StartGameFromGameSample(string sampleId);
+        Task<NewGameDto> StartGameFromGameSample(string sampleId, string userId);
         Task<NewGameDto> GenerateNewGameRoom(string userId);
         Task<IList<NewGameDto>> GetAllGameRooms(string userId);
         Task RemoveRoom(string userId, string gameRoomId);
