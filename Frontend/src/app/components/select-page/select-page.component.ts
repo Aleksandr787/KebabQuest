@@ -39,7 +39,7 @@ import { GameService } from '../../services/game.service';
 export class SelectPageComponent implements OnInit {
   
   public cards: IGameCard[] = [];
-
+  
   constructor(
     private _gameService: GameService,
     private _router: Router
@@ -56,7 +56,7 @@ export class SelectPageComponent implements OnInit {
   }
 
   public selectGame(): void {
-    // this._gameService.eventStartGame.emit();
+    this._gameService.generateGameStory();
     this._router.navigate(["game"]);
   }
 }

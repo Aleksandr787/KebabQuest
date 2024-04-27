@@ -46,10 +46,9 @@ export class GamePageComponent implements OnInit {
   public story: GameStory | undefined;
 
   public ngOnInit(): void {
-    // this.generateGameStory();
-    // this._gameService.eventStartGame.subscribe(() => {
-    //   this.generateGameStory();
-    // })
+    this._gameService.eventStartGame.subscribe(() => {
+      this.generateGameStory();
+    });
   }
 
   get isLoading(): boolean {
@@ -57,6 +56,7 @@ export class GamePageComponent implements OnInit {
   }
 
   public generateGameStory() {
+    console.log('generateGameStory');
     this._isLoading = true;
 
     this._gameService.getStory().subscribe((story: GameStory) => {
