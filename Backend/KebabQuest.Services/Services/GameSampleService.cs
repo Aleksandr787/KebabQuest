@@ -32,8 +32,8 @@ namespace KebabQuest.Services.Services
             for(int i = 0; i < 6; i++)
             {
                 var newStoryLine = await _gameLogicService.GenerateNewStory();
-                var gameRoom = DataMapper.MapToGameRoom(newStoryLine);
-                var image = await _gameLogicService.GenerateInitialImage(gameRoom);
+                var image = await _gameLogicService.GenerateInitialImage(newStoryLine);
+                var gameRoom = DataMapper.MapToGameRoom(newStoryLine, image);
 
                 var result = DataMapper.MapToGameSample(newStoryLine);
                 result.Image = image;
