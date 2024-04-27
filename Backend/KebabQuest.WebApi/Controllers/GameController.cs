@@ -25,7 +25,7 @@ namespace KebabQuest.WebApi.Controllers
         }
 
         [HttpGet("{gameRoomId}")]
-        public async Task<IActionResult> GetGameRoomById(string gameRoomId)
+        public async Task<ActionResult<GameRoom>> GetGameRoomById(string gameRoomId)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace KebabQuest.WebApi.Controllers
         }
 
         [HttpPost("new-game/{userId}")]
-        public async Task<IActionResult> GenerateNewGameRoom(string userId)
+        public async Task<ActionResult<NewGameDto>> GenerateNewGameRoom(string userId)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace KebabQuest.WebApi.Controllers
         }
 
         [HttpPost("do-step/{roomId}")]
-        public async Task<IActionResult> DoStep(string roomId, [FromBody] QuestStep questStep)
+        public async Task<ActionResult<QuestStep>> DoStep(string roomId, [FromBody] QuestStep questStep)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace KebabQuest.WebApi.Controllers
         }
 
         [HttpDelete("{userId}")]
-        public async Task<IActionResult> RemoveGameRoom(string userId, [FromQuery] string roomId)
+        public async Task<ActionResult> RemoveGameRoom(string userId, [FromQuery] string roomId)
         {
             try
             {
