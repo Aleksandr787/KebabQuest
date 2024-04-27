@@ -30,16 +30,14 @@ namespace KebabQuest.Services.Services
         {
             var newStory = await _gameLogicService.GenerateNewStory();
             var gameRoom = DataMapper.MapToGameRoom(newStory);
-            var image = await _gameLogicService.GenerateInitialImage(gameRoom);
-            gameRoom.Steps!.First().Image = image;
-
             var gameRoomId = await _gameRoomService.CreateGameRoom(gameRoom);
             await _userService.AddGameRoomId(userId, gameRoomId);
 
-            var result = DataMapper.MapToNewGameDto(newStory);
-            result.Id = gameRoomId;
-            result.Image = image;
-            return result;
+            var newGameDto = DataMapper.MapToNewGameDto(newStory);
+            var image = await _gameLogicService.GenerateInitialImage(gameRoom);
+            newGameDto.Id = gameRoomId;
+            newGameDto.Image = image;
+            return newGameDto;
         }
 
         public async Task RemoveRoom(string userId, string gameRoomId)
@@ -58,7 +56,7 @@ namespace KebabQuest.Services.Services
 
             foreach (var item in gameRoomsIds)
             {
-                result.Append(await _gameRoomService.GetById(item));
+                result.Add(await _gameRoomService.GetById(item));
             }
 
             return result;
@@ -67,7 +65,10 @@ namespace KebabQuest.Services.Services
         public async Task<QuestStep> DoStep(string roomId, QuestStep step)
         {
             var gameRoom = await _gameRoomService.GetById(roomId);
+
+            gameRoom.Steps ??= new List<QuestStep>();
             gameRoom.Steps.Add(step);
+            
             await _gameRoomService.Update(roomId, gameRoom);
 
             var newQuestion = _gameLogicService.GenerateNewQuestion(gameRoom);

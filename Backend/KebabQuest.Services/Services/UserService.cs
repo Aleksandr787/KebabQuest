@@ -28,13 +28,13 @@ namespace KebabQuest.Services.Services
 
         public async Task AddGameRoomId(string userToken, string gameRoomId)
         {
-            var user = await _userRepository.GetById(userToken);
+            var user = await _userRepository.GetById(userToken) ?? 
+                       throw new Exception("User not found");
 
-            if (user == null)
-                throw new Exception();
-
-            user.GameRoomIds.Append(gameRoomId);
-            await _userRepository.UpdateEntity(user.Id, user);
+            user.GameRoomIds ??= new List<string>();
+            user.GameRoomIds.Add(gameRoomId);
+    
+            await _userRepository.UpdateEntity(user.Id!, user);
         }
 
         public async Task<ICollection<string>?> GetAllGameRooms(string userToken)

@@ -21,17 +21,5 @@ namespace KebabQuest.Data.Repositories
             await AddEntity(newRoom);
             return id;
         }
-
-        public async Task DeleteGameRoom(string id)
-        {
-            await Delete(id);
-        }
-
-        public async Task<GameRoom> Get(string id)
-        {
-            return await GetById(id);
-        }
-
-
     }
 }

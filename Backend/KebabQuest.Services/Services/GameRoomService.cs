@@ -26,7 +26,7 @@ namespace KebabQuest.Services.Services
 
         public async Task DeleteGameRoom(string id)
         {
-            await _gameRoomRepository.DeleteGameRoom(id);
+            await _gameRoomRepository.Delete(id);
         }
 
         public async Task<GameRoom> GetById(string id)

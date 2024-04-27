@@ -25,6 +25,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(corsPolicyBuilder =>
+{
+    corsPolicyBuilder
+        .WithOrigins("http://localhost:4200" ?? throw new InvalidOperationException())
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
+});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -18,14 +18,6 @@ namespace KebabQuest.Services.Helpers
                 Plot = dto.Plot,
                 GameColors = dto.GameColors,
                 MainPlayer = dto.MainPlayer,
-                Steps = new List<QuestStep>
-                {
-                    new QuestStep()
-                    {
-                        Question = dto.Question,
-                        Options = dto.Options
-                    }
-                }
             };
         }
 
