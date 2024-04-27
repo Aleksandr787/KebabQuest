@@ -41,5 +41,27 @@ namespace KebabQuest.Services.Helpers
                 Image = image
             };
         }
+
+        public static NewGameDto MapToNewGameDto(GameRoomSample gameRoomSample)
+        {
+            return new NewGameDto
+            {
+                Id = gameRoomSample.Id,
+                Image = gameRoomSample.Image,
+                Plot = gameRoomSample.Plot,
+                Title = gameRoomSample.Title
+            };
+        }
+
+        public static GameRoomSample MapToGameSample(NewStoryLineJsonDto newStoryLineJsonDto)
+        {
+            return new GameRoomSample
+            {
+                Plot = newStoryLineJsonDto.Plot,
+                Title = newStoryLineJsonDto.Title,
+                GameColors = newStoryLineJsonDto.GameColors,
+                MainPlayer = newStoryLineJsonDto.MainPlayer
+            };
+        }
     }
 }

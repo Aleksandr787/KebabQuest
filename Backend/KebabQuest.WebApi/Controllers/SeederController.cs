@@ -9,20 +9,20 @@ namespace KebabQuest.WebApi.Controllers
     [ApiController]
     public class SeederController : ControllerBase
     {
-        private readonly INewStoryLineDtoService _newStoryLineDtoService;
+        private readonly IGameSampleService _newStoryLineDtoService;
 
-        public SeederController(INewStoryLineDtoService newStoryLineDtoService)
+        public SeederController(IGameSampleService newStoryLineDtoService)
         {
             _newStoryLineDtoService = newStoryLineDtoService;
         }
 
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<NewStoryLineJsonDto>> GetById(string id)
+        public async Task<ActionResult<ICollection<NewGameDto>>> GetGameSamples()
         {
             try
             {
-                var NewStoryLineJsonDto = await _newStoryLineDtoService.GetById(id);
+                var NewStoryLineJsonDto = await _newStoryLineDtoService.GetGameSamples();
                 return Ok(NewStoryLineJsonDto);
             }
             catch (Exception ex)

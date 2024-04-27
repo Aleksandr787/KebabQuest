@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace KebabQuest.Data.Repositories
 {
-    public class NewStoryLineDtoRepository : BaseRepository<NewStoryLineJsonDto>
+    public class GameSampleRepository : BaseRepository<GameRoomSample>
     {
-        public NewStoryLineDtoRepository(MongoDataContext context) : base(context, "new-story-line")
+        public GameSampleRepository(MongoDataContext context) : base(context, "game-room-sample")
         { }
 
 

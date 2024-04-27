@@ -1,5 +1,6 @@
 ﻿using KebabQuest.Data.Dto;
 using KebabQuest.Data.Repositories;
+using KebabQuest.Services.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace KebabQuest.Services.Interfaces
 {
-    public interface INewStoryLineDtoService
+    public interface IGameSampleService
     {
-        Task<NewStoryLineJsonDto> GetById(string id);
+        Task<ICollection<NewGameDto>> GetGameSamples();
         Task Generate();
     }
 }
