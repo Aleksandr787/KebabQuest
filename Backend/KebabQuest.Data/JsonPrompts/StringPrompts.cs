@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace KebabQuest.Data.JsonPrompts
 {
     public static class StringPrompts
     {
-        public static string Json = @"
+        private static readonly JObject JsonObject = new()
         {
-          ""newStoryLine"": ""Твой ответ заполненный этот JSON объект на русском, не ограничивай себя фентези. Например, стимпанк, квест о приключениях в космосе будущего, квест о удивительных событияъ в повседневной жизни, квест о параллельных реальностях. Сгенерируй что-то на подобии этого"",
-          ""newQuestion"": ""Твой ответ заполненный этот JSON объект новым вопросом""
-        }";
+            { "newStoryLine", "Твой ответ заполненный этот JSON объект на русском" },
+            { "newQuestion", "Твой ответ заполненный этот JSON объект новым вопросом" },
+            { "initialImage", "Обложка для квест игры" }
+        };
+
+        public static string GetPrompts => JsonObject.ToString();
     }
 }

@@ -11,7 +11,7 @@ namespace KebabQuest.Data.Configuration
     {
         public static void ConfigurePrompts(this IServiceCollection services)
         {
-            var stringPrompts = JsonConvert.DeserializeObject<StringPromptsDto>(StringPrompts.Json)!;
+            var stringPrompts = JsonConvert.DeserializeObject<StringPromptsDto>(StringPrompts.GetPrompts)!;
             services.AddSingleton(stringPrompts!);
             
         }

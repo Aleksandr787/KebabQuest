@@ -19,6 +19,7 @@ public abstract class BaseChatGptService
     
     public async Task<string> SendRequest(string? prompt = null, JToken? messageHistory = null)
     {
+        // prompt parameter is for testing, should be removed
         var request = new HttpRequestMessage(HttpMethod.Post, CreateUrl("chat/completions"));
         SetHeaders(request);
         

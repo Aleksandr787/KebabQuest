@@ -30,7 +30,7 @@ public class GamePromptService : IGamePromptService
     
     public async Task<NewStoryLineJsonDto> GenerateNewStory()
     {
-        var prompt = NewStoryLine.Json + _stringPrompts.NewStoryLine;
+        var prompt = NewStoryLine.JsonPrompt + _stringPrompts.NewStoryLine;
         var messages = new JArray
         {
             new JObject
@@ -53,7 +53,7 @@ public class GamePromptService : IGamePromptService
     public async Task<NewStoryLineJsonDto> GenerateNewStoryTheb()
     {
         // just for testing
-        var prompt = NewStoryLine.Json + _stringPrompts.NewStoryLine;
+        var prompt = NewStoryLine.JsonPrompt + _stringPrompts.NewStoryLine;
         var messages = new JArray
         {
             new JObject
@@ -71,6 +71,16 @@ public class GamePromptService : IGamePromptService
         }
 
         return newGameDto;
+    }
+
+    public Task<string> GenerateInitialImage(GameRoom gameRoom)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<string> GenerateImagePerStep(GameRoom gameRoom)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<NewQuestionJsonDto> GenerateNewQuestion(GameRoom gameRoom)
@@ -103,7 +113,7 @@ public class GamePromptService : IGamePromptService
             }
         }
 
-        var prompt = NewQuestion.Json + _stringPrompts.NewQuestion;
+        var prompt = NewQuestion.JsonPrompt + _stringPrompts.NewQuestion;
         var promptModel = new JObject {
             { "role", "user" },
             { "content", prompt }
