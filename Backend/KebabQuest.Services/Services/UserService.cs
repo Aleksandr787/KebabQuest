@@ -37,7 +37,7 @@ namespace KebabQuest.Services.Services
             await _userRepository.UpdateEntity(user.Id!, user);
         }
 
-        public async Task<ICollection<string>?> GetAllGameRooms(string userToken)
+        public async Task<ICollection<string>?> GetAllGameRoomsIds(string userToken)
         {
             var user = await _userRepository.GetById(userToken);
 

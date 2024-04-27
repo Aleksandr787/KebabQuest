@@ -74,9 +74,9 @@ public class GameLogicService : IGameLogicService
         return newGameDto;
     }
 
-    public async Task<string> GenerateInitialImage(GameRoom gameRoom)
+    public async Task<string> GenerateInitialImage(NewStoryLineJsonDto newStoryLine)
     {
-        var prompt = $"{_stringPrompts.InitialImage} {InfoPromptForInitialImage(gameRoom)}";
+        var prompt = $"{_stringPrompts.InitialImage} {InfoPromptForInitialImage(newStoryLine)}";
         return await _kandinskyService.GenerateImage(prompt);
     }
 
@@ -122,19 +122,21 @@ public class GameLogicService : IGameLogicService
             { "content", prompt }
         };
         messages.Add(promptModel);
+        
+        Console.WriteLine(messages.ToString());
         var newQuestionJson = await _chatGptProxyService.SendRequest(null, messages);
         var newQuestionDto = JsonConvert.DeserializeObject<NewQuestionJsonDto>(newQuestionJson);
         if (newQuestionDto is null) throw new InvalidOperationException("New question model was not created correctly");
         return newQuestionDto;
     }
 
-    private string InfoPromptForInitialImage(GameRoom gameRoom)
+    private string InfoPromptForInitialImage(NewStoryLineJsonDto newStoryLine)
     {
         var info = new JObject
         {
-            { "title", gameRoom.Title },
-            { "gameColors", gameRoom.GameColors },
-            { "mainPlayer", JObject.FromObject(gameRoom.MainPlayer!) }
+            { "title", newStoryLine.Title },
+            { "gameColors", newStoryLine.GameColors },
+            { "mainPlayer", JObject.FromObject(newStoryLine.MainPlayer!) }
         };
 
         return info.GetValidPromptForImage();

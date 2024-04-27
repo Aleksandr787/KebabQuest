@@ -8,7 +8,7 @@ public interface IGameLogicService
     Task<NewStoryLineJsonDto> GenerateNewStory();
     Task<NewQuestionJsonDto> GenerateNewQuestion(GameRoom gameRoom);
     Task<NewStoryLineJsonDto> GenerateNewStoryTheb();
-    Task<string> GenerateInitialImage(GameRoom gameRoom);
+    Task<string> GenerateInitialImage(NewStoryLineJsonDto newStoryLine);
     Task<string> GenerateImagePerStep(GameRoom gameRoom, QuestStep questStep);
 
 }

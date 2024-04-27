@@ -29,14 +29,13 @@ namespace KebabQuest.Services.Services
         public async Task<NewGameDto> GenerateNewGameRoom(string userId)
         {
             var newStory = await _gameLogicService.GenerateNewStory();
-            var gameRoom = DataMapper.MapToGameRoom(newStory);
+            var image = await _gameLogicService.GenerateInitialImage(newStory);
+            var gameRoom = DataMapper.MapToGameRoom(newStory, image);
             var gameRoomId = await _gameRoomService.CreateGameRoom(gameRoom);
             await _userService.AddGameRoomId(userId, gameRoomId);
 
-            var newGameDto = DataMapper.MapToNewGameDto(newStory);
-            var image = await _gameLogicService.GenerateInitialImage(gameRoom);
+            var newGameDto = DataMapper.MapToNewGameDto(newStory, image);
             newGameDto.Id = gameRoomId;
-            newGameDto.Image = image;
             return newGameDto;
         }
 
@@ -46,37 +45,42 @@ namespace KebabQuest.Services.Services
             await _userService.DeleteGameRoom(userId, gameRoomId);
         }
 
-        public async Task<ICollection<GameRoom>?> GetAllGameRooms(string userId)
+        public async Task<IList<NewGameDto>> GetAllGameRooms(string userId)
         {
-            var gameRoomsIds = await _userService.GetAllGameRooms(userId);
-            var result = new List<GameRoom>();
+            var gameRoomsIds = await _userService.GetAllGameRoomsIds(userId);
+            var result = new List<NewGameDto>();
 
-            if (gameRoomsIds == null)
+            if (gameRoomsIds is null)
+            {
                 return result;
+            }
 
             foreach (var item in gameRoomsIds)
             {
-                result.Add(await _gameRoomService.GetById(item));
+                var gameRoom = await _gameRoomService.GetById(item);
+                var lastStep = gameRoom.Steps!.Last();
+                result.Add(DataMapper.MapToNewGameDto(gameRoom, lastStep));
             }
 
             return result;
         }
 
-        public async Task<QuestStep> DoStep(string roomId, QuestStep step)
+        public async Task<QuestStep> DoStep(string roomId, string answer)
         {
             var gameRoom = await _gameRoomService.GetById(roomId);
+            gameRoom.Steps!.Last().Answer = answer;
 
-            gameRoom.Steps ??= new List<QuestStep>();
-            gameRoom.Steps.Add(step);
-
-            await _gameRoomService.Update(roomId, gameRoom);
 
             var newQuestion = _gameLogicService.GenerateNewQuestion(gameRoom);
-            var image = _gameLogicService.GenerateImagePerStep(gameRoom, step);
+            var lastStep = gameRoom.Steps!.Last();
+            var image = _gameLogicService.GenerateImagePerStep(gameRoom, lastStep);
 
             await Task.WhenAll(newQuestion, image);
-            var result = DataMapper.MapToQuestStep(newQuestion.Result, image.Result);
-            return result;
+            var questStep = DataMapper.MapToQuestStep(newQuestion.Result, image.Result);
+            gameRoom.Steps!.Add(questStep);
+            
+            await _gameRoomService.Update(roomId, gameRoom);
+            return questStep;
         }
     }
 }

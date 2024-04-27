@@ -10,10 +10,10 @@ namespace KebabQuest.Data.Dto
     public class NewGameDto
     {
         public string Id { get; set; } = "";
-        public string Title { get; set; } = "";
-        public string Plot { get; set; } = "";
-        public string Question { get; set; } = null!;
-        public Options Options { get; set; } = null!;
-        public string Image { get; set; } = "";
+        public string? Title { get; set; }
+        public string? Plot { get; set; }
+        public string? Question { get; set; }
+        public Options? Options { get; set; }
+        public string? Image { get; set; }
     }
 }

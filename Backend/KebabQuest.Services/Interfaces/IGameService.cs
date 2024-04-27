@@ -11,8 +11,8 @@ namespace KebabQuest.Services.Interfaces
     public interface IGameService
     {
         Task<NewGameDto> GenerateNewGameRoom(string userId);
-        Task<ICollection<GameRoom>?> GetAllGameRooms(string userId);
+        Task<IList<NewGameDto>> GetAllGameRooms(string userId);
         Task RemoveRoom(string userId, string gameRoomId);
-        Task<QuestStep> DoStep(string roomId, QuestStep step);
+        Task<QuestStep> DoStep(string roomId, string answer);
     }
 }
