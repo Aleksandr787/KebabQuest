@@ -3,6 +3,7 @@ using KebabQuest.Data.Models;
 using KebabQuest.Services.Helpers;
 using KebabQuest.Services.Interfaces;
 using KebabQuest.Services.Services;
+using KebabQuest.WebApi.Dto;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
@@ -68,11 +69,16 @@ namespace KebabQuest.WebApi.Controllers
         }
 
         [HttpPost("do-step/{roomId}")]
-        public async Task<ActionResult<QuestStep>> DoStep(string roomId, [FromBody] QuestStep questStep)
+        public async Task<ActionResult<QuestStep>> DoStep(string roomId, [FromBody] AnswerDto answerDto)
         {
             try
             {
-                var newStep = await _gameService.DoStep(roomId, questStep);
+                if (answerDto.Answer is null)
+                {
+                    return BadRequest();
+                }
+                
+                var newStep = await _gameService.DoStep(roomId, answerDto.Answer);
                 return Ok(newStep);
             }
             catch (Exception e)

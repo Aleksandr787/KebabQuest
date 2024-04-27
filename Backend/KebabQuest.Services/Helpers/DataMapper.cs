@@ -10,35 +10,79 @@ namespace KebabQuest.Services.Helpers
 {
     public static class DataMapper
     {
-        public static GameRoom MapToGameRoom(NewStoryLineJsonDto dto)
+        public static GameRoom MapToGameRoom(NewStoryLineJsonDto dto, string image)
         {
-            return new GameRoom
+            return new()
             {
                 Title = dto.Title,
                 Plot = dto.Plot,
                 GameColors = dto.GameColors,
                 MainPlayer = dto.MainPlayer,
+                Steps = new List<QuestStep>()
+                {
+                    new ()
+                    {
+                        Question = dto.Question,
+                        Options = dto.Options,
+                        Image = image
+                    }
+                }
             };
         }
 
-        public static NewGameDto MapToNewGameDto(NewStoryLineJsonDto dto)
+        public static NewGameDto MapToNewGameDto(NewStoryLineJsonDto dto, string image)
         {
-            return new NewGameDto
+            return new()
             {
                 Title = dto.Title,
                 Plot = dto.Plot,
                 Question = dto.Question,
-                Options = dto.Options
+                Options = dto.Options,
+                Image = image
+            };
+        }
+        
+        public static NewGameDto MapToNewGameDto(GameRoom gameRoom, QuestStep lastQuestStep)
+        {
+            return new()
+            {
+                Title = gameRoom.Title,
+                Plot = gameRoom.Plot,
+                Question = lastQuestStep.Question,
+                Options = lastQuestStep.Options,
+                Image = lastQuestStep.Image
             };
         }
 
         public static QuestStep MapToQuestStep(NewQuestionJsonDto questionDto, string image)
         {
-            return new QuestStep
+            return new()
             {
                 Question = questionDto.Question,
                 Options = questionDto.Options,
                 Image = image
+            };
+        }
+
+        public static NewGameDto MapToNewGameDto(GameRoomSample gameRoomSample)
+        {
+            return new NewGameDto
+            {
+                Id = gameRoomSample.Id,
+                Image = gameRoomSample.Image,
+                Plot = gameRoomSample.Plot,
+                Title = gameRoomSample.Title
+            };
+        }
+
+        public static GameRoomSample MapToGameSample(NewStoryLineJsonDto newStoryLineJsonDto)
+        {
+            return new GameRoomSample
+            {
+                Plot = newStoryLineJsonDto.Plot,
+                Title = newStoryLineJsonDto.Title,
+                GameColors = newStoryLineJsonDto.GameColors,
+                MainPlayer = newStoryLineJsonDto.MainPlayer
             };
         }
     }

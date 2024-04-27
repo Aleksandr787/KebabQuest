@@ -11,7 +11,7 @@ namespace KebabQuest.Services.Services
     {
         Task<string> RegisterUserAsync();
         Task AddGameRoomId(string userToken, string gameRoomId);
-        Task<ICollection<string>?> GetAllGameRooms(string userToken);
+        Task<ICollection<string>?> GetAllGameRoomsIds(string userToken);
         Task DeleteGameRoom(string userToken, string gameRoomId);
     }
 }
