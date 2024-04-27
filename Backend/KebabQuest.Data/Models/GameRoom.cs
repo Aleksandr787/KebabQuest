@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KebabQuest.Data.Models
 {
-    public class Game : Base
+    public class GameRoom : Base
     {
         public string? Title { get; set; }
         public string? Plot { get; set; }
