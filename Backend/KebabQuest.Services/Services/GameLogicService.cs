@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 
 namespace KebabQuest.Services.Services;
 
-public class GameLogicService : IGamePromptService
+public class GameLogicService : IGameLogicService
 {
     private readonly ChatGptProxyService _chatGptProxyService;
     private readonly ChatGptThebService _chatGptThebService;

@@ -13,5 +13,6 @@ namespace KebabQuest.Services.Interfaces
         Task<string> CreateGameRoom(GameRoom newRoom);
         Task DeleteGameRoom(string id);
         Task<GameRoom> GetById(string id);
+        Task Update(string id, GameRoom gameRoom);
     }
 }

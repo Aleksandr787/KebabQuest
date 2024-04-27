@@ -38,5 +38,10 @@ namespace KebabQuest.Services.Services
 
             return gameRoom;
         }
+
+        public async Task Update(string id, GameRoom gameRoom)
+        {
+            await _gameRoomRepository.UpdateEntity(id, gameRoom);
+        }
     }
 }

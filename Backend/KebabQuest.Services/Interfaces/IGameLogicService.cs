@@ -3,7 +3,7 @@ using KebabQuest.Data.Models;
 
 namespace KebabQuest.Services.Interfaces;
 
-public interface IGamePromptService
+public interface IGameLogicService
 {
     Task<NewStoryLineJsonDto> GenerateNewStory();
     Task<NewQuestionJsonDto> GenerateNewQuestion(GameRoom gameRoom);

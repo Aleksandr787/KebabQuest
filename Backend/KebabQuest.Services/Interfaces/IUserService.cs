@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KebabQuest.Data.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,8 @@ namespace KebabQuest.Services.Services
     public interface IUserService
     {
         Task<string> RegisterUserAsync();
+        Task AddGameRoomId(string userToken, string gameRoomId);
+        Task<ICollection<string>?> GetAllGameRooms(string userToken);
+        Task DeleteGameRoom(string userToken, string gameRoomId);
     }
 }
