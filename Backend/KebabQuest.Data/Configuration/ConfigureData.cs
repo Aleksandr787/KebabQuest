@@ -22,6 +22,7 @@ namespace KebabQuest.Data.Configuration
         {
             services.AddScoped<MongoDataContext>();
             services.AddScoped<UserRepository>();
+            services.AddScoped<GameRoomRepository>();
         }
     }
 }
