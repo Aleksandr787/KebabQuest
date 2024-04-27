@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace KebabQuest.Data.Repositories
 {
-    public class UserRepository : BaseRepository<Player>
+    public class UserRepository : BaseRepository<User>
     {
         public UserRepository(MongoDataContext context) : base(context, "users")
         {}
 
         public async Task RegisterUserAsync(string userNewToken)
         {
-            var playerEntity = new Player() { Id = userNewToken };
-            await AddEntity(playerEntity);
+            var userEntity = new User() { Id = userNewToken };
+            await AddEntity(userEntity);
         }
 
-        public async Task<Player> GetById(string userToken)
+        public async Task<User> GetById(string userToken)
         {
             return await GetById(userToken);
         }

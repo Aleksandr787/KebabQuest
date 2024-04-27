@@ -28,34 +28,34 @@ namespace KebabQuest.Services.Services
 
         public async Task AddGameRoomId(string userToken, string gameRoomId)
         {
-            var player = await _userRepository.GetById(userToken);
+            var user = await _userRepository.GetById(userToken);
 
-            if (player == null)
+            if (user == null)
                 throw new Exception();
 
-            player.GameRoomIds.Append(gameRoomId);
-            await _userRepository.UpdateEntity(player.Id, player);
+            user.GameRoomIds.Append(gameRoomId);
+            await _userRepository.UpdateEntity(user.Id, user);
         }
 
-        public async Task<ICollection<string>?> GetAllGameRooms(string playerId)
+        public async Task<ICollection<string>?> GetAllGameRooms(string userToken)
         {
-            var player = await _userRepository.GetById(playerId);
+            var user = await _userRepository.GetById(userToken);
 
-            if (player == null)
+            if (user == null)
                 throw new Exception();
 
-            return player.GameRoomIds;
+            return user.GameRoomIds;
         }
 
         public async Task DeleteGameRoom(string userToken, string gameRoomId)
         {
-            var player = await _userRepository.GetById(userToken);
+            var user = await _userRepository.GetById(userToken);
 
-            if (player == null)
+            if (user == null)
                 throw new Exception();
 
-            player.GameRoomIds.Remove(gameRoomId);
-            await _userRepository.UpdateEntity(player.Id, player);
+            user.GameRoomIds.Remove(gameRoomId);
+            await _userRepository.UpdateEntity(user.Id, user);
         }
     }
 }

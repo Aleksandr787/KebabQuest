@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KebabQuest.Data.Models
 {
-    public class Player : Base
+    public class User : Base
     {
         public ICollection<string>? GameRoomIds { get; set; }
     }
