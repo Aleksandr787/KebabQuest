@@ -47,6 +47,7 @@ namespace KebabQuest.Services.Helpers
         {
             return new()
             {
+                Id = gameRoom.Id,
                 Title = gameRoom.Title,
                 Plot = gameRoom.Plot,
                 Question = lastQuestStep.Question,
