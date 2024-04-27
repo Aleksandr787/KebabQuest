@@ -52,6 +52,7 @@ public class GamePromptService : IGamePromptService
     
     public async Task<NewStoryLineJsonDto> GenerateNewStoryTheb()
     {
+        // just for testing
         var prompt = NewStoryLine.Json + _stringPrompts.NewStoryLine;
         var messages = new JArray
         {

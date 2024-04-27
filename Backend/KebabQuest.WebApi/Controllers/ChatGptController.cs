@@ -48,6 +48,7 @@ public class ChatGptController : ControllerBase
     [HttpPost("new-story-line-theb")]
     public async Task<IActionResult> GenerateNewStoryLineTheb()
     {
+        // for testing
         var newStoryLine = await _gamePromptService.GenerateNewStoryTheb();
         return Ok(newStoryLine);
     }
