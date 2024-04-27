@@ -1,4 +1,6 @@
-﻿using KebabQuest.Data.Models;
+﻿using KebabQuest.Data.Dto;
+using KebabQuest.Data.Models;
+using KebabQuest.Services.Helpers;
 using KebabQuest.Services.Interfaces;
 using KebabQuest.Services.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +21,7 @@ namespace KebabQuest.WebApi.Controllers
         {
             _gameService = gameService;
             _gameRoomService = gameRoomService;
+            _gameService = gameService;
         }
 
         [HttpGet("{gameRoomId}")]
