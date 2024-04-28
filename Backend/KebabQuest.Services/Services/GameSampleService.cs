@@ -37,7 +37,7 @@ namespace KebabQuest.Services.Services
         public async Task SeedData()
         {
             _gameSampleRepository.CleanUpDocument();
-            const int gameSamplesCount = 12;
+            const int gameSamplesCount = 15;
 
             for (var i = 0; i < gameSamplesCount; i++)
             {
