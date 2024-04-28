@@ -21,7 +21,11 @@ namespace KebabQuest.Services.Services
 
         public async Task<ICollection<QuestStep>> GetScreenCastCollection()
         {
-            return (await _gameRoomRepository.GetAll()).Select(f => f.Steps != null ? f.Steps.Last() : null).ToList();
+            return (await _gameRoomRepository.GetAll())
+                .Where(q => q.Steps is not null && q.Steps?.Last() is not null)
+                .Select(q => q.Steps!.Last())
+                .Take(24)
+                .ToList();
         }
     }
 }

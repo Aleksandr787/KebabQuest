@@ -1,0 +1,11 @@
+<div class="layout">
+    <div class="quest-step" *ngFor="let step of screenCastData">
+        <img class="image" src="data:image/png;base64, {{step.image}}" alt="">
+        <div class="question-wrapper">
+            <p>{{step.question}}</p>
+        </div>
+    </div>
+    <div class="qr-code-wrapper">
+        <div class="qr-code"></div>
+    </div>
+</div>

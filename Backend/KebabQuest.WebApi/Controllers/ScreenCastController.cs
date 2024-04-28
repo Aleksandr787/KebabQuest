@@ -16,7 +16,7 @@ namespace KebabQuest.WebApi.Controllers
             _screenCastService = screenCastService;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("get-data")]
         public async Task<ActionResult<ICollection<QuestStep>>> GetScreenCastCollection()
         {
             try
