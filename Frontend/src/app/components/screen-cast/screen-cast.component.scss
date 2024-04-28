@@ -6,21 +6,35 @@
     width: 100%;
     gap: 12px;
 
-    .qr-code {
+    .qr-code-wrapper {
         grid-column: 4 / 7;
         grid-row: 2 / 3;
-        background-color: cadetblue;
+        display: flex;
+        justify-content: center;
+        padding: 24px;
+
+        .qr-code {
+            height: 100%;
+            max-width: min-content;
+            aspect-ratio: 1 / 1;
+            background-color: white;
+            border-radius: 24px;
+        }
+        
     }
 
     .quest-step {
-        display: grid;
-        grid-template-rows: 1fr 1fr;
-        .image-wrapper {
-            background-color: red;    
+        background-color: #272727;
+        border-radius: 16px;
+
+        .image {
+            object-fit: contain;
+            border-radius: 12px;
+            max-width: 100%;
         }
 
         .question-wrapper {
-            background-color: grey;
+            padding: 12px;
         }
     }
 }
