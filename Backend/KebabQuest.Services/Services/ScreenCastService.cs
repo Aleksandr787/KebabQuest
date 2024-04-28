@@ -24,7 +24,8 @@ namespace KebabQuest.Services.Services
             return (await _gameRoomRepository.GetAll())
                 .Where(q => q.Steps is not null && q.Steps?.Last() is not null)
                 .Select(q => q.Steps!.Last())
-                .Take(24)
+                .Reverse()
+                .Take(15)
                 .ToList();
         }
     }
