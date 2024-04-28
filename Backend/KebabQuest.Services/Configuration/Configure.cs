@@ -20,7 +20,8 @@ namespace KebabQuest.Services.Configuration
             services.AddScoped<IGameRoomService, GameRoomService>();
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IGameSampleService, GameSampleService>();
-
+            services.AddScoped<IScreenCastService, ScreenCastService>();
+            
             services.AddSingleton<ChatGptProxyService>();
             services.AddSingleton<ChatGptThebService>();
             services.AddSingleton<IKandinskyService, KandinskyService>();
