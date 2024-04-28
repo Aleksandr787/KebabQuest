@@ -48,10 +48,7 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all",
-              "ssl": true,
-              "sslKey": "ssl/localhost_80.key",
-              "sslCert": "ssl/localhost_80.crt"
+              "outputHashing": "all"
             },
             "development": {
               "optimization": false,
