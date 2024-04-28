@@ -4,11 +4,6 @@ import {Observable, switchMap} from "rxjs";
 import {IGameNextStep, IGameStory} from "../interfaces/gameCard";
 import {AuthService} from "./auth.service";
 
-export enum GameStateEnum {
-  START = 'START',
-  IN_PROGRESS = 'IN_PROGRESS'
-}
-
 @Injectable({
   providedIn: 'root'
 })
