@@ -190,20 +190,13 @@ public class GameLogicService : IGameLogicService
         var info = new JObject
         {
             { "question", questStep.Question},
+            { "answer", questStep.Answer},
             { "gameColors", gameRoom.GameColors },
             { "mainPlayer", JObject.FromObject(gameRoom.MainPlayer!) }
         };
-
-        if (questStep.Answer is null)
-        {
-            return info.GetValidPromptForImage();
-        }
-
-        var isValid = await IsAnswerValid(questStep.Answer);
-        if (isValid)
-        {
-            info.Add(new JProperty("answer", questStep.Answer));
-        }
+        
+        // filteting answer, disabled at this moment
+        //var isValid = await IsAnswerValid(questStep.Answer);
 
         return info.GetValidPromptForImage();
     }
