@@ -48,7 +48,10 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "ssl": true,
+              "sslKey": "ssl/localhost_80.key",
+              "sslCert": "ssl/localhost_80.crt"
             },
             "development": {
               "optimization": false,
@@ -73,12 +76,6 @@
             "development": {
               "buildTarget": "Frontend:build:development"
             }
-          },
-          "options": {
-            "proxyConfig": "proxy.conf.js",
-            "ssl": true,
-            "sslKey": "ssl/localhost_80.key",
-            "sslCert": "ssl/localhost_80.crt"
           },
           "defaultConfiguration": "development"
         },
