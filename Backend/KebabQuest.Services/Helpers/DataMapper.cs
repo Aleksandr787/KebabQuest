@@ -42,7 +42,7 @@ namespace KebabQuest.Services.Helpers
                 Image = image
             };
         }
-        
+
         public static NewGameDto MapToNewGameDto(GameRoom gameRoom, QuestStep lastQuestStep)
         {
             return new()

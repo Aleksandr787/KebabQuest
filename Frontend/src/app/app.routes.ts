@@ -6,7 +6,7 @@ import { ScreenCastComponent } from './components/screen-cast/screen-cast.compon
 
 export enum AppRoutes {
   START = 'start',
-  SELECT = 'select',
+  CREATE = 'create',
   GAME = 'game',
   SCREEN_CAST = "screen-cast"
 }
@@ -27,7 +27,7 @@ export const routes: Routes = [
     component: StartPageComponent,
   },
   {
-    path: AppRoutes.SELECT,
+    path: AppRoutes.CREATE,
     component: SelectPageComponent,
   },
   {

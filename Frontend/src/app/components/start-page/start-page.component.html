@@ -1,4 +1,33 @@
-<div class="container" style="display: flex; flex-direction: column; margin-top: 150px; gap: 24px;">
+<app-spinner *ngIf="spinner.active()"></app-spinner>
+
+<ng-container *ngIf="gameStories$ | async as gameStories">
+  <div *ngIf="gameStories.length === 0" class="container"
+       style="display: flex; flex-direction: column; margin-top: 150px; gap: 24px;">
     <p style="color: var(--primary-text); font-size: 50px; font-weight: 500;">KebabQuest</p>
-    <button mat-flat-button (click)="startGame()" style="width: 100%; height: 60px; font-size: 40px; margin-bottom: 16px;">Start game</button>
-</div>
+    <button mat-flat-button (click)="startGame()"
+            style="width: 100%; height: 60px; font-size: 24px; margin-bottom: 16px;">Начать новую игру
+    </button>
+  </div>
+
+  <ng-container *ngIf="gameStories.length > 0">
+    <h1 style="padding-inline: 16px; padding-bottom: 12px; font-weight: 500; line-height: 28px">Ваши игры:</h1>
+
+    <div class="container-cards">
+      @for (gameStory of gameStories; track gameStory) {
+        <div (click)="continueGame(gameStory.id)" matRipple class="card">
+          <img class="card__image" src="data:image/png;base64, {{gameStory.image}}" alt="Template image">
+          <div class="card__info">
+            <span class="card__info__name">{{ gameStory.title }}</span>
+          </div>
+        </div>
+      }
+
+      <div
+        (click)="startGame()"
+        style="display: flex; justify-content: center; align-items: center; position: fixed; border-radius: 32px; border-color: #00dddd; background: #003737; bottom: 16px; right: 16px; width: 64px; height: 64px; color: #00dddd; font-size: 24px">
+        +
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
