@@ -38,8 +38,8 @@ namespace KebabQuest.Services.Services
         {
             _gameSampleRepository.CleanUpDocument();
             const int gameSamplesCount = 6;
-            
-            for(var i = 0; i < gameSamplesCount; i++)
+
+            for (var i = 0; i < gameSamplesCount; i++)
             {
                 var newStoryLine = await _gameLogicService.GenerateNewStory();
                 var image = await _gameLogicService.GenerateInitialImage(newStoryLine);

@@ -1,4 +1,4 @@
-const defaultTarget = 'http://localhost:5292';
+const defaultTarget = 'http://kq-backend:80';
 
 module.exports = [
   {

@@ -165,7 +165,7 @@ public class GameLogicService : IGameLogicService
             { "content", prompt }
         };
         messages.Add(promptModel);
-        
+
         var newQuestionJson = await _chatGptProxyService.SendRequest(null, messages);
         var extractedJsonObject = ExtractJsonObject(newQuestionJson);
         var newQuestionDto = JsonConvert.DeserializeObject<NewQuestionJsonDto>(extractedJsonObject);
@@ -198,7 +198,7 @@ public class GameLogicService : IGameLogicService
         {
             return info.GetValidPromptForImage();
         }
-        
+
         var isValid = await IsAnswerValid(questStep.Answer);
         if (isValid)
         {
@@ -234,7 +234,7 @@ public class GameLogicService : IGameLogicService
         {
             return match.Value;
         }
-        
+
         throw new InvalidOperationException("Ai model didn't return json object");
     }
 }

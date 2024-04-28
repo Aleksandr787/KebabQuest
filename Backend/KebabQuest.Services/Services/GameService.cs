@@ -103,7 +103,7 @@ namespace KebabQuest.Services.Services
             await Task.WhenAll(newQuestion, image);
             var questStep = DataMapper.MapToQuestStep(newQuestion.Result, image.Result);
             gameRoom.Steps!.Add(questStep);
-            
+
             await _gameRoomService.Update(roomId, gameRoom);
             return questStep;
         }

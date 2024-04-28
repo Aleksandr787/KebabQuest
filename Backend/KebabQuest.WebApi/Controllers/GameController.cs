@@ -67,7 +67,7 @@ namespace KebabQuest.WebApi.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+
         [HttpGet("is-valid")]
         public async Task<IActionResult> IsAnswerValid([FromQuery] string answer)
         {
@@ -99,7 +99,7 @@ namespace KebabQuest.WebApi.Controllers
                 {
                     return BadRequest();
                 }
-                
+
                 var newStep = await _gameService.DoStep(roomId, answerDto.Answer);
                 return Ok(newStep);
             }

@@ -14,8 +14,6 @@ services:
       - "5292:80"
     depends_on:
       - kq-mongo
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
   kq-mongo:
     container_name: kq-mongo
     image: mongo:latest
