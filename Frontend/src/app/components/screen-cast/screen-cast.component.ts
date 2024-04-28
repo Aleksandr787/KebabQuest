@@ -29,7 +29,7 @@ export class ScreenCastComponent implements OnInit, OnDestroy {
   }
 
   private startPollingData(): void {
-    this.pollingSubscription = interval(5000)
+    this.pollingSubscription = interval(7000)
     .pipe(
       switchMap(() => this._screenCastService.getNewData())
     ).subscribe(data => this.screenCastData = data);
