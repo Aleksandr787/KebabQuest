@@ -75,7 +75,10 @@
             }
           },
           "options": {
-            "proxyConfig": "proxy.conf.js"
+            "proxyConfig": "proxy.conf.js",
+			"ssl": "true",
+			"sslKey": "ssl/localhost_80.key",
+			"sslCert": "ssl/localhost_80.crt"
           },
           "defaultConfiguration": "development"
         },
