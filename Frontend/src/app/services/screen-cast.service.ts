@@ -11,6 +11,6 @@ export class ScreenCastService {
   constructor(private readonly _httpClient: HttpClient) { }
 
   public getNewData(): Observable<IGameNextStep[]> {
-    return this._httpClient.get<IGameNextStep[]>(`api/ScreenCaset/get-data`);
+    return this._httpClient.get<IGameNextStep[]>(`api/ScreenCast/get-data`);
   }
 }
