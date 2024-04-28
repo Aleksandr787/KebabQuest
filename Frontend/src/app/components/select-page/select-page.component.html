@@ -3,7 +3,7 @@
 <ng-container *ngIf="cards$ | async as cards">
   <h1 style="padding-inline: 16px; padding-bottom: 12px; font-weight: 500; line-height: 28px">Выберите шаблон:</h1>
 
-  <div *ngIf="cards.length > 0" class="container-cards">
+  <div class="container-cards">
     <div (click)="selectGame()" matRipple class="card">
       <img src="assets\images\image1.jpg" alt="Random image" class="card__image">
       <div class="card__info">

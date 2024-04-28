@@ -60,8 +60,16 @@ export class GamePageComponent {
   private readonly _stepEvent$: Subject<string> = new Subject<string>();
 
   protected readonly _step$: Observable<IGameNextStep> = combineLatest([this._stepEvent$, this._gameId$.pipe(exists())]).pipe(
-    switchMapSpinner(([answer, gameId]) => this._gameService.getNextStepStory(gameId, answer), this.spinner)
+    switchMapSpinner(([answer, gameId]) => {
+      this._nullifyAnswers();
+      return this._gameService.getNextStepStory(gameId, answer)
+    }, this.spinner)
   );
+
+  private _nullifyAnswers(): void {
+    this.activeElement = null;
+    this.inputValue = '';
+  }
 
   protected readonly story$: Observable<IGameStory> = withSpinner(combineLatest([
     this._templateId$,
