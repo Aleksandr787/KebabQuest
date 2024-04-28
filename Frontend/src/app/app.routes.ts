@@ -5,7 +5,7 @@ import {SelectPageComponent} from './components/select-page/select-page.componen
 
 export enum AppRoutes {
   START = 'start',
-  SELECT = 'select',
+  CREATE = 'create',
   GAME = 'game'
 }
 
@@ -25,7 +25,7 @@ export const routes: Routes = [
     component: StartPageComponent,
   },
   {
-    path: AppRoutes.SELECT,
+    path: AppRoutes.CREATE,
     component: SelectPageComponent,
   },
   {

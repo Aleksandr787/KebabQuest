@@ -19,6 +19,12 @@ export class GameService {
   ) {
   }
 
+  public getGames(): Observable<IGameStory[]> {
+    return this._authService.token$.pipe(
+      switchMap((token) => this._httpClient.get<IGameStory[]>(`api/Game/get-all-games/${token}`))
+    );
+  }
+
   public getNextStepStory(gameId: string, answer: string): Observable<IGameNextStep> {
     return this._httpClient.post<IGameNextStep>(`api/Game/do-step/${gameId}`, {answer: answer});
   }

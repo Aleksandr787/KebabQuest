@@ -9,4 +9,4 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["ng", "serve","--hmr", "--disable-host-check", "--port", "4200", "--public-host", "0.0.0.0:4200", "--host", "0.0.0.0"]

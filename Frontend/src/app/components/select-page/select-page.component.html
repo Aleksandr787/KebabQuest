@@ -1,9 +1,13 @@
+<app-spinner *ngIf="spinner.active()"></app-spinner>
+
 <ng-container *ngIf="cards$ | async as cards">
+  <h1 style="padding-inline: 16px; padding-bottom: 12px; font-weight: 500; line-height: 28px">Выберите шаблон:</h1>
+
   <div *ngIf="cards.length > 0" class="container-cards">
     <div (click)="selectGame()" matRipple class="card">
       <img src="assets\images\image1.jpg" alt="Random image" class="card__image">
       <div class="card__info">
-        <span class="card__info__name">Random</span>
+        <span class="card__info__name">Случайная игра</span>
       </div>
     </div>
 
@@ -15,5 +19,11 @@
         </div>
       </div>
     }
+  </div>
+
+  <div
+    (click)="goBack()"
+    style="display: flex; justify-content: center; align-items: center; position: fixed; border-radius: 32px; background: #003737; bottom: 16px; right: 16px; width: 64px; height: 64px; color: #00dddd; font-size: 24px">
+    ←
   </div>
 </ng-container>

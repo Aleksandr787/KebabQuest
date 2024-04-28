@@ -16,6 +16,8 @@ import {IGameCard} from '../../interfaces/gameCard';
 import {GameSampleService} from "../../services/game-sample.service";
 import {Observable, shareReplay} from "rxjs";
 import {AppRoutes, GlobalQueryParams} from "../../app.routes";
+import {SpinnerComponent} from "../spinner/spinner.component";
+import {Spinner, withSpinner} from "../../utils/spinner";
 
 @Component({
   selector: 'app-select-page',
@@ -33,7 +35,8 @@ import {AppRoutes, GlobalQueryParams} from "../../app.routes";
     MatRadioModule,
     FormsModule,
     MatRippleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    SpinnerComponent
   ],
   templateUrl: './select-page.component.html',
   styleUrl: './select-page.component.scss'
@@ -45,16 +48,22 @@ export class SelectPageComponent {
   ) {
   }
 
-  protected readonly cards$: Observable<IGameCard[]> = this._gameSampleService.getSamples().pipe(
+  protected readonly spinner = new Spinner();
+
+  protected readonly cards$: Observable<IGameCard[]> = withSpinner(this._gameSampleService.getSamples(), this.spinner).pipe(
     shareReplay({
       bufferSize: 1,
       refCount: true
     })
   );
 
-  public selectGame(card: IGameCard | null = null): void {
+  protected selectGame(card: IGameCard | null = null): void {
     this._router.navigate([AppRoutes.GAME], {
       queryParams: {[GlobalQueryParams.TEMPLATE_ID]: card?.id}
     }).then();
+  }
+
+  protected goBack(): void {
+    this._router.navigate([AppRoutes.START]).then();
   }
 }

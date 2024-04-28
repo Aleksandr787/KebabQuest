@@ -1,7 +1,7 @@
 <app-spinner *ngIf="spinner.active()"></app-spinner>
 
 <div *ngIf="story$ | async as story">
-  <h1 style="padding-bottom: 12px; font-weight: 500">{{ story.title }}</h1>
+  <h1 style="padding-bottom: 12px; font-weight: 500; line-height: 28px">{{ story.title }}</h1>
 
   <div class="test">
     <img class="image" src="data:image/png;base64, {{story.image}}" alt="">
@@ -19,9 +19,11 @@
 
   <ng-container *ngIf="story.options as options">
     <div class="answerList">
-      <div class="answer" [id]="index" *ngFor="let answer of Object.values(options); let index = index"
-           [class.active]="activeElement === index" (click)="toggleActive(index)">{{ answer }}
-      </div>
+      <ng-container *ngFor="let answer of Object.values(options); let index = index">
+        <div *ngIf="answer.length !== 0" class="answer" [id]="index"
+             [class.active]="activeElement === index" (click)="toggleActive(index)">{{ answer }}
+        </div>
+      </ng-container>
       <div class="answer" [id]="Object.values(options).length + 1" [class.active]="activeElement === 3"
            (click)="toggleActive(Object.values(options).length)">
         <input type="text" placeholder="Напишите свой вариант ответа..." [(ngModel)]="inputValue">
@@ -30,7 +32,7 @@
     <button style="width: 100%; margin-top: 16px;" mat-stroked-button
             (click)="activeElement !== null && nextStep(activeElement < Object.values(options).length ? Object.values(story.options)[activeElement] : inputValue)"
             [disabled]="isDisabled">
-      Next
+      Далее
     </button>
   </ng-container>
 </div>
