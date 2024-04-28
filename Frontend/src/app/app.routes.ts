@@ -2,11 +2,13 @@ import {Routes} from '@angular/router';
 import {StartPageComponent} from './components/start-page/start-page.component';
 import {GamePageComponent} from './components/game-page/game-page.component';
 import {SelectPageComponent} from './components/select-page/select-page.component';
+import { ScreenCastComponent } from './components/screen-cast/screen-cast.component';
 
 export enum AppRoutes {
   START = 'start',
   SELECT = 'select',
-  GAME = 'game'
+  GAME = 'game',
+  SCREEN_CAST = "screen-cast"
 }
 
 export enum GlobalQueryParams {
@@ -32,4 +34,8 @@ export const routes: Routes = [
     path: AppRoutes.GAME,
     component: GamePageComponent,
   },
+  {
+    path: AppRoutes.SCREEN_CAST,
+    component: ScreenCastComponent
+  }
 ];
